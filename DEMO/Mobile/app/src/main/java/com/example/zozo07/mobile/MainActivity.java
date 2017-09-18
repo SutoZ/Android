@@ -1,8 +1,6 @@
 package com.example.zozo07.mobile;
 
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,12 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import com.concretepage.android.R;
 //import com.concretepage.android.R;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -53,29 +49,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Setup a handler to respond to click events on the navigation elements and swap out the fragment.
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(NavigationView navigationView){
         navigationView.setNavigationItemSelectedListener(
-
-                new NavigationView.onNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
+        new NavigationView.onNavigationItemSelectedListener(){
+        @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem){
+            selectDrawerItem(menuItem);
+            return true;
+        }
+        });
     }
 
     public void selectDrawerItem(MenuItem menuItem){
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-    }
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem menuItem) {
-        selectDrawerItem(menuItem);
-        return true;
     }
-    //folyt
 }
 
 

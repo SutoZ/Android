@@ -1,3 +1,4 @@
+
 package com.example.zozo07.mobile;
 
 import android.support.design.widget.NavigationView;
@@ -8,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import com.concretepage.android.R;
 //import com.concretepage.android.R;
 
 
@@ -63,7 +62,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem){
+        //Create a new fragment and specify the fragment to show based on nav item clicked.
+        Fragment fragment = null;
+        Class fragmentclass;
+        switch (menuItem.getItemId()){
+            case R.id.calendar:
+                fragmentclass = CalendarFragment.class;
+                break;
+            case R.id.graphs:
+                fragmentclass = GraphFragment.class;
+                break;
+            case R.id.sleep:
+                fragmentclass = SleepFragment.class;
+                break;
+            case R.id.settings:     //Might be tricky.
+                fragmentclass = SettingsFragment.class;
+                break;
+        }
 
+        try{
+            //Insert a fragment by replacing any existing fragment.
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager.begintTransaction().replace(R.id.flContent, fragment).commit();
+
+            // Highlight the selected item has been done by NavigationView
+            menuItem.setChecked(true);
+            //Set action bar title.
+            setTitle(menuItem.getTitle());
+
+            //Close the drawer.
+            mDrawer.closeDrawers();
+
+
+        }
     }
 }
 

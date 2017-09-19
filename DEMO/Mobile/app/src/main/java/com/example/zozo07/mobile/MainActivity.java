@@ -84,6 +84,16 @@ public class MainActivity extends AppCompatActivity {
             //Insert a fragment by replacing any existing fragment.
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentManager.begintTransaction().replace(R.id.flContent, fragment).commit();
+
+            // Highlight the selected item has been done by NavigationView
+            menuItem.setChecked(true);
+            //Set action bar title.
+            setTitle(menuItem.getTitle());
+
+            //Close the drawer.
+            mDrawer.closeDrawers();
+
+
         }
     }
 }

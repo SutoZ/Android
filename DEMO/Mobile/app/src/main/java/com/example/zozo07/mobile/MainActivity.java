@@ -2,6 +2,9 @@
 package com.example.zozo07.mobile;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-//import com.concretepage.android.R;
+import com.concretepage.android.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
         try{
             //Insert a fragment by replacing any existing fragment.
             FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentManager.begintTransaction().replace(R.id.flContent, fragment).commit();
+
+            //might be bad as int.
+            int ft = fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
 
             // Highlight the selected item has been done by NavigationView
             menuItem.setChecked(true);
@@ -95,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+        catch (Exception e){
+            e.printStackTrace();    //write error to console.
+        }
+
     }
 }
 

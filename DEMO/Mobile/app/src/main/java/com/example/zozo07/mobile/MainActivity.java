@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
             //Close the drawer.
             mDrawer.closeDrawers();
-
-
         }
-    }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 }
 
 

@@ -25,9 +25,11 @@
         android:id="@+id/nvView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        app:header="@layout/nav_header"
         android:layout_gravity="start"
         android:background="@android:color/white"
         app:menu="@menu/drawer_view" />
 </android.support.v4.widget.DrawerLayout>
 
     <!--app:menu="@menu/drawer_view" -->
+<!--This app:headerLayout inflates the specified layout into the header automatically. -->

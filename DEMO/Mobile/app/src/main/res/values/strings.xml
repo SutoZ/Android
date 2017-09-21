@@ -3,4 +3,6 @@
     <string name="start">btn_start</string>
     <string name="SetAlarm">Set Alarm</string>
     <string name="timer_alarm">Timer Alarm</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

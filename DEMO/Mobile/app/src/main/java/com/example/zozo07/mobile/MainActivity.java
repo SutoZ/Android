@@ -1,6 +1,9 @@
 
 package com.example.zozo07.mobile;
 
+import android.content.res.Configuration;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.concretepage.android.R;
 
 
@@ -35,14 +40,40 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
+        drawerToggle = setupDrawerToggle();
         //Setup a drawer view.
+        setupDrawerContent(nvDrawer);
+
+        //Tie DrawerLayout events to the ActionBarToggle
+        mDrawer.addDrawerListener(drawerToggle);
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        //Sync the toggle state after onRestoreInstanceState has occured.
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        //Pass any configurationchange to the drawer toggle.
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        // NOTE: Make sure you pass in a valid toolbar reference.
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
-        switch (item.getItemId()){      //that's the way we refer to an item.
+        switch (item.getItemId()) {      //that's the way we refer to an item.
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
                 return true;    //get out of the switch.
@@ -53,22 +84,25 @@ public class MainActivity extends AppCompatActivity {
 
     //Setup a handler to respond to click events on the navigation elements and swap out the fragment.
 
-    private void setupDrawerContent(NavigationView navigationView){
+    private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-        new NavigationView.onNavigationItemSelectedListener(){
-        @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem){
-            selectDrawerItem(menuItem);
-            return true;
-        }
-        });
+                new NavigationView.onNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+
+        //Might be completey unnesecary.
+        //View headerLayout = navigationView.getHeaderView(0);
     }
 
-    public void selectDrawerItem(MenuItem menuItem){
+    public void selectDrawerItem(MenuItem menuItem) {
         //Create a new fragment and specify the fragment to show based on nav item clicked.
         Fragment fragment = null;
         Class fragmentclass;
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.calendar:
                 fragmentclass = CalendarFragment.class;
                 break;
@@ -83,13 +117,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        try{
+        try {
             //Insert a fragment by replacing any existing fragment.
             FragmentManager fragmentManager = getSupportFragmentManager();
-
-            //might be bad as int.
-            int ft = fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
             // Highlight the selected item has been done by NavigationView
             menuItem.setChecked(true);
@@ -100,8 +131,7 @@ public class MainActivity extends AppCompatActivity {
             mDrawer.closeDrawers();
 
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();    //write error to console.
         }
 

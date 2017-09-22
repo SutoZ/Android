@@ -2,21 +2,15 @@
 package com.example.zozo07.mobile;
 
 import android.content.res.Configuration;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-
 import com.concretepage.android.R;
 
 
@@ -64,38 +58,34 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // The action bar home/up action should open or close the drawer.
-        switch (item.getItemId()) {      //that's the way we refer to an item.
-            case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
-                return true;    //get out of the switch.
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (drawerToggle.onOptionsItemSelected(menuItem)){
+            return  true;
         }
-
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(menuItem);
     }
 
     //Setup a handler to respond to click events on the navigation elements and swap out the fragment.
 
     private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.onNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
 
+        //MIGHT BE BAD!!!
+
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+                //new NavigationView.onNavigationItemSelectedListener(this);
         //Might be completey unnesecary.
         //View headerLayout = navigationView.getHeaderView(0);
+    }
+
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        selectDrawerItem(menuItem);
+        return true;
     }
 
     public void selectDrawerItem(MenuItem menuItem) {

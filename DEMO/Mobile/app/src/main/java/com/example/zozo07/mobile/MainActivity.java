@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.concretepage.android.R;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawer;
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
         //Setup a drawer view.
         setupDrawerContent(nvDrawer);
 
@@ -73,14 +73,28 @@ public class MainActivity extends AppCompatActivity {
 
     //Setup a handler to respond to click events on the navigation elements and swap out the fragment.
 
+
+    /*
     private void setupDrawerContent(NavigationView navigationView) {
 
         //MIGHT BE BAD!!!
-
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
+navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) navigationView);
+        //navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
                 //new NavigationView.onNavigationItemSelectedListener(this);
         //Might be completey unnesecary.
         //View headerLayout = navigationView.getHeaderView(0);
+    }
+*/
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
     }
 
     public boolean onNavigationItemSelected(MenuItem menuItem) {

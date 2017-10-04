@@ -61,7 +61,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (frAlarm == null) {
             frAlarm = new FragmentAlarm();
             fm.beginTransaction()
-                    .replace(R.id.fragment_container, frAlarm, FragmentBoxOffice.TAG)
+                    .replace(R.id.fragment_container, frAlarm, FragmentAlarm.TAG)
                     //.addToBackStack(null);  // uncomment this line if you want to be able to return to the prev. fragment with "back" button
                     .commit();
         }

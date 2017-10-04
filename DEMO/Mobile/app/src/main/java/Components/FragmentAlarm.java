@@ -12,10 +12,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.concretepage.android.R;
-import com.example.zozo07.mobile.MainActivity;
+import com.example.zozo07.mobile.AlarmReceiver;
 import com.example.zozo07.mobile.MyConstans;
+import com.example.zozo07.mobile.MyDialogFragment;
 
 import java.util.Calendar;
 
@@ -42,14 +42,14 @@ public class FragmentAlarm extends FragmentActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mylayout);
+        setContentView(R.layout.simple_alarm);
         textView1 = (TextView) findViewById(R.id.msg1);
         textView1.setText(timeHour + ":" + timeMinute);
-        textView2 = (TextView) findViewById(R.id.msg2);
+      //  textView2 = (TextView) findViewById(R.id.msg2);
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
+        Intent myIntent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
 
         View.OnClickListener listener1 = new View.OnClickListener() {
             public void onClick(View view) {
@@ -66,24 +66,24 @@ public class FragmentAlarm extends FragmentActivity{
             }
         };
 
-        Button btn1 = (Button) findViewById(R.id.);
-        btn1.setOnClickListener(listener1);
-        OnClickListener listener2 = new OnClickListener() {
+        Button btnStart = (Button) findViewById(R.id.start);
+        btnStart.setOnClickListener(listener1);
+        View.OnClickListener listener2 = new View.OnClickListener() {
             public void onClick(View view) {
                 textView2.setText("");
                 cancelAlarm();
             }
         };
-        Button btn2 = (Button) findViewById(R.id.button2);
-        btn2.setOnClickListener(listener2);
+        Button btnStop = (Button) findViewById(R.id.stop);
+        btnStop.setOnClickListener(listener2);
     }
 
     class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             Bundle bundle = msg.getData();
-            timeHour = bundle.getInt(MyConstants.HOUR);
-            timeMinute = bundle.getInt(MyConstants.MINUTE);
+            timeHour = bundle.getInt(MyConstans.MyConstants.HOUR);
+            timeMinute = bundle.getInt(MyConstans.MyConstants.MINUTE);
             textView1.setText(timeHour + ":" + timeMinute);
             setAlarm();
         }

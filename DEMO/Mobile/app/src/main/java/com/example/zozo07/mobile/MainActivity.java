@@ -4,7 +4,6 @@ package com.example.zozo07.mobile;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,10 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
+import android.app.FragmentManager;
 import com.concretepage.android.R;
-
+import android.app.Fragment;
 import Components.FragmentAlarm;
+
+//import Components.FragmentAlarm;
 
 //import Components.FragmentAlarm;
 
@@ -57,9 +58,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
 
         FragmentManager fm = getFragmentManager();
-        FragmentAlarm frAlarm = fm.findFragmentByTag(FragmentAlarm.TAG);
+        Fragment frAlarm = fm.findFragmentByTag(FragmentAlarm.TAG);
         if (frAlarm == null) {
-            frAlarm = new FragmentAlarm();
+            frAlarm = new Fragment();
             fm.beginTransaction()
                     .replace(R.id.fragment_container, frAlarm, FragmentAlarm.TAG)
                     //.addToBackStack(null);  // uncomment this line if you want to be able to return to the prev. fragment with "back" button

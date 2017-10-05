@@ -1,7 +1,7 @@
 
 package com.example.zozo07.mobile;
 
-import android.app.FragmentManager;
+//import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
@@ -12,14 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.app.FragmentManager;
 import com.concretepage.android.R;
 import android.app.Fragment;
-import Components.FragmentAlarm;
+import com.example.zozo07.mobile.FragmentAlarm;
 
-//import Components.FragmentAlarm;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
-//import Components.FragmentAlarm;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -57,6 +56,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
+        FragmentAlarm fragmentAlarm = new FragmentAlarm();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragmentAlarm);
+        //FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+        //fragmentTransaction.replace(R.id.flContent, new FragmentAlarm());
+        //fragmentTransaction.commit();
+
+/*
         FragmentManager fm = getFragmentManager();
         Fragment frAlarm = fm.findFragmentByTag(FragmentAlarm.TAG);
         if (frAlarm == null) {
@@ -66,8 +74,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     //.addToBackStack(null);  // uncomment this line if you want to be able to return to the prev. fragment with "back" button
                     .commit();
         }
+        */
     }
-
 
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
@@ -92,10 +100,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
+        return drawerToggle.onOptionsItemSelected(menuItem) || super.onOptionsItemSelected(menuItem);
+
+        /*
         if (drawerToggle.onOptionsItemSelected(menuItem)){
             return  true;
         }
-        return super.onOptionsItemSelected(menuItem);
+        * */
     }
 
     //Setup a handler to respond to click events on the navigation elements and swap out the fragment.
@@ -150,7 +161,7 @@ navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationIte
 
         try {
             //Insert a fragment by replacing any existing fragment.
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
             // Highlight the selected item has been done by NavigationView

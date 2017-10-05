@@ -1,4 +1,4 @@
-package Components;
+package com.example.zozo07.mobile;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;

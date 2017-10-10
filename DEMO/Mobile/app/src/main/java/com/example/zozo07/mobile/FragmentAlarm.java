@@ -2,6 +2,7 @@ package com.example.zozo07.mobile;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,16 +10,13 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.concretepage.android.R;
-import com.example.zozo07.mobile.AlarmReceiver;
-import com.example.zozo07.mobile.MyConstans;
-import com.example.zozo07.mobile.MyDialogFragment;
-
 import java.util.Calendar;
+
+import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by Zozo07 on 2017.09.15..
@@ -78,6 +76,7 @@ public class FragmentAlarm extends FragmentActivity{
         Button btnStop = (Button) findViewById(R.id.stop);
         btnStop.setOnClickListener(listener2);
     }
+
 
     class MyHandler extends Handler {
         @Override

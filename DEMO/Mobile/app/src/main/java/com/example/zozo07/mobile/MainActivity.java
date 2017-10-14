@@ -53,7 +53,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
-        startActivity(new Intent(this, FragmentActivity.class));
+        startActivity(new Intent(this, FragmentAlarm.class));
+
+
 /*        FragmentAlarm fragmentAlarm = new FragmentAlarm();
 
         FragmentManager fragmentManager = getSupportFragmentManager();

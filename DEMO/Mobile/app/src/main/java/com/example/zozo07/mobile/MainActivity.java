@@ -4,7 +4,6 @@ package com.example.zozo07.mobile;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
@@ -34,10 +33,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         Button setAlarm = (Button) findViewById(R.id.setAlarm);
         setAlarm.setOnClickListener(this);
-        //Set a Toolbar to act as the ActionBar for this Activity window.
-
-        //NEEDED At all???
-    //    setSupportActionBar(toolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
@@ -49,31 +44,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mDrawer.addDrawerListener(drawerToggle);
     }
 
-
     @Override
     public void onClick(View v) {
 
-        startActivity(new Intent(this, FragmentAlarm.class));
-
-
-/*        FragmentAlarm fragmentAlarm = new FragmentAlarm();
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragmentAlarm).commit();
-        //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-
-
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment frAlarm = fm.findFragmentByTag(FragmentAlarm.TAG);
-        if (frAlarm == null) {
-            frAlarm = new Fragment();
-            fm.beginTransaction()
-                    .replace(R.id.fragment_container, frAlarm, FragmentAlarm.TAG)
-                    //.addToBackStack(null);  // uncomment this line if you want to be able to return to the prev. fragment with "back" button
-                    .commit();
-        }
-*/
+    //    startActivity(new Intent(this, FragmentAlarm.class));
     }
 
     @Override
@@ -100,28 +74,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         return drawerToggle.onOptionsItemSelected(menuItem) || super.onOptionsItemSelected(menuItem);
-
-        /*
-        if (drawerToggle.onOptionsItemSelected(menuItem)){
-            return  true;
-        }
-        * */
     }
-
-    //Setup a handler to respond to click events on the navigation elements and swap out the fragment.
-
-
-    /*
-    private void setupDrawerContent(NavigationView navigationView) {
-
-        //MIGHT BE BAD!!!
-navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) navigationView);
-        //navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
-                //new NavigationView.onNavigationItemSelectedListener(this);
-        //Might be completey unnesecary.
-        //View headerLayout = navigationView.getHeaderView(0);
-    }
-*/
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
@@ -142,22 +95,19 @@ navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationIte
     public void selectDrawerItem(MenuItem menuItem) {
         //Create a new fragment and specify the fragment to show based on nav item clicked.
         Fragment fragment = null;
-        Class fragmentclass;
+
         switch (menuItem.getItemId()) {
-            case R.id.calendar:
-                fragmentclass = CalendarFragment.class;
+            case R.id.alarms:
+               startActivity(new Intent(this, AlarmActivity.class));
                 break;
             case R.id.graphs:
-                fragmentclass = GraphFragment.class;
                 break;
             case R.id.sleep:
-                fragmentclass = SleepFragment.class;
                 break;
             case R.id.settings:     //Might be tricky.
-                fragmentclass = SettingsFragment.class;
                 break;
         }
-
+/*
         try {
             //Insert a fragment by replacing any existing fragment.
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -175,7 +125,9 @@ navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationIte
         } catch (Exception e) {
             e.printStackTrace();    //write error to console.
         }
+        */
     }
+
 }
 
 

@@ -1,22 +1,22 @@
 <menu xmlns:anroid="http://schemas.android.com/apk/res/android">
     <group anroid:checkableBehavior="single">
         <item
-            anroid:id="@+id/alarm_clock"
+            anroid:id="@+id/alarms"
             anroid:icon="@drawable/alarm_clock"
             anroid:title="Alarms"></item>
         <item
             anroid:id="@+id/calendar"
             anroid:icon="@drawable/alarm_clock"
-            anroid:title="Alarms"></item>
+            anroid:title="Calendar"></item>
         <item
             anroid:id="@+id/graphs"
             anroid:icon="@drawable/alarm_clock"
-            anroid:title="Alarms"></item>
+            anroid:title="Graphs"></item>
         <item
             anroid:id="@+id/sleep"
-            anroid:icon="@drawable/alarm_clock"
-            anroid:title="Alarms"></item>
-        <item anroid:title="Extras">
+            anroid:icon="@drawable/sleep"
+            anroid:title="Sleep"></item>
+        <item anroid:title="Settings">
             <menu>
                 <group anroid:checkableBehavior="single">
                      <item

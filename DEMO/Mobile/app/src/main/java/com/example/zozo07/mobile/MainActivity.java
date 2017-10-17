@@ -93,9 +93,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        //Create a new fragment and specify the fragment to show based on nav item clicked.
-        Fragment fragment = null;
-
         switch (menuItem.getItemId()) {
             case R.id.alarms:
                startActivity(new Intent(this, AlarmActivity.class));
@@ -107,27 +104,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.settings:     //Might be tricky.
                 break;
         }
-/*
-        try {
-            //Insert a fragment by replacing any existing fragment.
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-            // Highlight the selected item has been done by NavigationView
-            menuItem.setChecked(true);
-            //Set action bar title.
-            setTitle(menuItem.getTitle());
-
-            //Close the drawer.
-            mDrawer.closeDrawers();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();    //write error to console.
-        }
-        */
     }
-
 }
 
 

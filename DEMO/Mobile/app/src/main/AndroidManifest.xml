@@ -13,6 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.zozo07.mobile.AlarmActivity"></activity>
+        <activity android:name="com.example.zozo07.mobile.AlarmActivity"/>
+        <receiver android:name="com.example.zozo07.mobile.AlarmReceiver" />
     </application>
 </manifest>

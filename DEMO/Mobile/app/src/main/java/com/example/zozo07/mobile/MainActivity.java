@@ -1,6 +1,7 @@
 
 package com.example.zozo07.mobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
@@ -13,8 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import com.concretepage.android.R;
-import android.support.v4.app.Fragment;
-
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
@@ -22,6 +21,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+    public static String PACKAGE_NAME;
 
 
     @Override
@@ -29,10 +29,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PACKAGE_NAME = getApplicationContext().getPackageName();
         //Set a toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        Button setAlarm = (Button) findViewById(R.id.setAlarm);
-        setAlarm.setOnClickListener(this);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
@@ -47,7 +46,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
-    //    startActivity(new Intent(this, FragmentAlarm.class));
     }
 
     @Override

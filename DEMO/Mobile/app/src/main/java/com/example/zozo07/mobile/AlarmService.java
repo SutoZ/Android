@@ -21,6 +21,12 @@ public class AlarmService extends IntentService {
         sendNotification("Wake Up! Wake Up!");
     }
 
+    public static void cancelTask(Context context){
+        Intent intent = new Intent(context, AlarmService.class);
+        intent.putExtra("action", "cancel");
+        context.startService(intent);
+    }
+
     private void sendNotification(String msg) {
         Log.d("AlarmService", "Preparing to send notification...: " + msg);
         alarmNotificationManager = (NotificationManager) this

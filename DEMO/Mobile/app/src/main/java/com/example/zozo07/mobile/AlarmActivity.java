@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
@@ -16,13 +17,15 @@ import com.concretepage.android.R;
 import java.util.Calendar;
 
 
-public class AlarmActivity extends Activity {
+public class AlarmActivity extends Activity  implements View.OnClickListener{
 
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
     private static AlarmActivity inst;
     private TextView alarmTextView;
+    private Button btnStop;
+
 
     public static AlarmActivity instance() {
         return inst;
@@ -42,6 +45,14 @@ public class AlarmActivity extends Activity {
         alarmTextView = (TextView) findViewById(R.id.alarmText);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        btnStop = (Button) findViewById(R.id.btnStop);
+        btnStop.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
+        AlarmReceiver.getRingtone().stop();
     }
 
     public void onToggleClicked(View view) {
@@ -63,4 +74,6 @@ public class AlarmActivity extends Activity {
     public void setAlarmText(String alarmText) {
         alarmTextView.setText(alarmText);
     }
+
+ //   @Test
 }

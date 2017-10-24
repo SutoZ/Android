@@ -15,6 +15,7 @@ import com.concretepage.android.R;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -31,6 +32,9 @@ public class ExampleInstrumentedTest {
     @Before
     public void random(){
         appContext = InstrumentationRegistry.getTargetContext();
+        Intent intent = new Intent(appContext, AlarmActivity.class);
+        //starting Alarm function.
+        appContext.startActivity(intent);
     }
     @Test
     public void useAppContext() throws Exception{
@@ -39,11 +43,15 @@ public class ExampleInstrumentedTest {
 
     }
     @Test
-    public void startAlarm() throws InterruptedException {
-      Intent intent = new Intent(appContext, MainActivity.class);
-        appContext.startActivity(intent);
-        onView(withId(R.id.toolbar)).perform(click());
-        Thread.sleep(3000);
+    public void openAlarmActivity() throws InterruptedException {
+        onView(withId(R.id.alarmToggle)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void setHourOnTimePicker() {
+        onView(withId(R.id.alarmTimePicker)).perform(click());
+        onView(withText("05")).perform(click());
     }
 
 }

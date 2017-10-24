@@ -21,7 +21,7 @@ public class AlarmService extends IntentService {
         sendNotification("Wake Up! Wake Up!");
     }
 
-    public static void cancelTask(Context context){
+    public static void cancelTask(Context context){     //Proper way of stopping a broadcast activity!!!!
         Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra("action", "cancel");
         context.startService(intent);

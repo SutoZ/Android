@@ -2,7 +2,9 @@ package com.example.zozo07.mobile;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Instrumentation;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +27,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     private static AlarmActivity inst;
     private TextView alarmTextView;
     private Button btnStop;
-
+    private Context context;
 
     public static AlarmActivity instance() {
         return inst;
@@ -35,6 +37,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     public void onStart() {
         super.onStart();
         inst = this;
+        context = getApplicationContext();
     }
 
     @Override
@@ -51,6 +54,8 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+
+        AlarmService.cancelTask(context);
         stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
         AlarmReceiver.getRingtone().stop();
     }
@@ -62,7 +67,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
+            pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0); //important!
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
@@ -74,6 +79,4 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     public void setAlarmText(String alarmText) {
         alarmTextView.setText(alarmText);
     }
-
- //   @Test
 }

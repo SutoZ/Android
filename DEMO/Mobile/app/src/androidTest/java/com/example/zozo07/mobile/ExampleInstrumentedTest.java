@@ -1,11 +1,13 @@
 package com.example.zozo07.mobile;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.TimePicker;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +16,8 @@ import com.concretepage.android.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -27,6 +29,7 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
 
     private Context appContext;
+    private TimePicker timePicker;
 
 
     @Before
@@ -40,18 +43,21 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws Exception{
         appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("com.example.zozo07.mobile", appContext.getPackageName());
-
     }
     @Test
-    public void openAlarmActivity() throws InterruptedException {
+    public void openAlarmActivity_Appears() throws InterruptedException {
         onView(withId(R.id.alarmToggle)).perform(click());
         Thread.sleep(1000);
     }
 
     @Test
-    public void setHourOnTimePicker() {
-        onView(withId(R.id.alarmTimePicker)).perform(click());
-        onView(withText("05")).perform(click());
-    }
+    public void setTimeOnTimePicker() throws InterruptedException{
+        int hour = 10;
+        int minute = 55;
 
+        onView(withId(R.id.alarmTimePicker)).perform(click());
+        Object name = onView(withClassName(Matchers.equalTo(TimePicker.class.getName())));
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
+        Thread.sleep(2000);
+    }
 }

@@ -2,7 +2,6 @@ package com.example.zozo07.mobile;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.Instrumentation;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +53,6 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
         AlarmService.cancelTask(context);
         stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
         AlarmReceiver.getRingtone().stop();

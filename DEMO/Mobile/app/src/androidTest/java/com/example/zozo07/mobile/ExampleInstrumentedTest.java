@@ -50,7 +50,7 @@ public class ExampleInstrumentedTest {
         Thread.sleep(1000);
     }
 
-    @Test
+    @Test 
     public void setTimeOnTimePicker() throws InterruptedException{
         int hour = 10;
         int minute = 55;

@@ -25,7 +25,6 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     private TimePicker alarmTimePicker;
     private static AlarmActivity inst;
     private TextView alarmTextView;
-    private Button btnStop;
     private Context context;
 
     public static AlarmActivity instance() {
@@ -47,7 +46,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         alarmTextView = (TextView) findViewById(R.id.alarmText);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        btnStop = (Button) findViewById(R.id.btnStop);
+        Button btnStop = (Button) findViewById(R.id.btnStop);
         btnStop.setOnClickListener(this);
     }
 

@@ -95,6 +95,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                startActivity(new Intent(this, AlarmActivity.class));
                 break;
             case R.id.graphs:
+                startActivity(new Intent(this, ChartActivity.class));
                 break;
             case R.id.sleep:
                 break;

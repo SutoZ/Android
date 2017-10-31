@@ -33,25 +33,26 @@ public class ExampleInstrumentedTest {
 
 
     @Before
-    public void random(){
+    public void initiatingTestEnvironment_WithProperActivityStart(){
         appContext = InstrumentationRegistry.getTargetContext();
         Intent intent = new Intent(appContext, AlarmActivity.class);
         //starting Alarm function.
         appContext.startActivity(intent);
     }
     @Test
-    public void useAppContext() throws Exception{
+    public void AppContext_checkPackageName_fromContext_With_GivenInputPackageName_Exception() throws Exception{
+        String PACKAGE_NAME = "com.example.zozo07.mobile";
         appContext = InstrumentationRegistry.getTargetContext();
-        assertEquals("com.example.zozo07.mobile", appContext.getPackageName());
+        assertEquals(PACKAGE_NAME, appContext.getPackageName());
     }
     @Test
-    public void openAlarmActivity_Appears() throws InterruptedException {
+    public void openAlarmActivityAppears_InterruptedException() throws InterruptedException {
         onView(withId(R.id.alarmToggle)).perform(click());
         Thread.sleep(1000);
     }
 
-    @Test 
-    public void setTimeOnTimePicker() throws InterruptedException{
+    @Test
+    public void setTimeOnTimePicker_InterruptedException() throws InterruptedException{
         int hour = 10;
         int minute = 55;
 

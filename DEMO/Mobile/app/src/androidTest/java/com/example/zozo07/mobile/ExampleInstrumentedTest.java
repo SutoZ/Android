@@ -50,7 +50,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.alarmToggle)).perform(click());
         Thread.sleep(1000);
     }
-
+//asadasad
     @Test
     public void setTimeOnTimePicker_InterruptedException() throws InterruptedException{
         int hour = 10;

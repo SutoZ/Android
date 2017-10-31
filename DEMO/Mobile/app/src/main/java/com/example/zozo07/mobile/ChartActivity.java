@@ -1,8 +1,7 @@
 package com.example.zozo07.mobile;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.concretepage.android.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -12,25 +11,21 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 
-/**
- * Created by Zozo07 on 2017.10.30..
- */
-
-public class ChartActivity extends Activity{
+public class ChartActivity extends AppCompatActivity {
 
     private BarChart barChart;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.id.chart_activity);
+        setContentView(R.layout.activity_chart);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
 
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         barEntries.add(new BarEntry(50f, 0));
-        barEntries.add(new BarEntry(100f, 0));
-        barEntries.add(new BarEntry(20f, 0));
+        barEntries.add(new BarEntry(100f, 1));
+        barEntries.add(new BarEntry(20f, 2));
 
         BarDataSet barDataSet = new BarDataSet(barEntries, "Data");
 

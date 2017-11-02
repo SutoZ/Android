@@ -22,7 +22,7 @@
 
         <receiver android:name="com.example.zozo07.mobile.AlarmReceiver" />
 
-        <activity android:name="com.example.zozo07.mobile.ChartActivity"></activity>
+        <activity android:name="com.example.zozo07.mobile.ChartActivity"/>
+        
     </application>
-
 </manifest>

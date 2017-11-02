@@ -16,4 +16,45 @@
         android:id="@+id/bargraph">
     </com.github.mikephil.charting.charts.BarChart>
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/bargraph"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:id="@+id/weekDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Weekdays" />
+
+        <RadioButton
+            android:id="@+id/saturday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Saturday" />
+
+        <RadioButton
+            android:id="@+id/sunday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sunday" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/radioGroup"
+        android:onClick="createGraph"
+        android:layout_marginEnd="13dp"
+        android:text="@string/create" />
+
+
 </RelativeLayout>

@@ -1,26 +1,6 @@
 package com.example.zozo07.mobile;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.contrib.PickerActions;
-import android.support.test.runner.AndroidJUnit4;
-import android.widget.TimePicker;
 
-import com.concretepage.android.R;
-
-import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -28,6 +8,8 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
+/*
 @RunWith(AndroidJUnit4.class)
 public class ExampleUnitTest {
 
@@ -86,3 +68,5 @@ public class ExampleUnitTest {
     }
 
 }
+
+*/

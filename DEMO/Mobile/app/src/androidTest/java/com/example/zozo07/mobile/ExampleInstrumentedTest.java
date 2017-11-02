@@ -23,6 +23,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
@@ -34,7 +35,7 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
 
     private Context appContext;
@@ -68,27 +69,7 @@ public class ExampleInstrumentedTest {
         int minute = 55;
 
         onView(withId(R.id.alarmTimePicker)).perform(click());
-        //Object name = onView(withClassName(Matchers.equalTo(TimePicker.class.getName())));
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
         Thread.sleep(2000);
     }
-
-    @Test
-    public void checkIfBarChartIsDisplayed_InterruptedException() throws InterruptedException {
-        appContext = InstrumentationRegistry.getTargetContext();
-        Intent intent = new Intent(appContext, ChartActivity.class);
-        appContext.startActivity(intent);
-        onView((withId(R.id.bargraph))).check(matches(isDisplayed()));
-        Thread.sleep(500);
-    }
-
-    @Test
-    public void checkIfBarChartX_AxisIsDisplayed_InterruptedException() throws InterruptedException {
-        appContext = InstrumentationRegistry.getTargetContext();
-        Intent intent = new Intent(appContext, ChartActivity.class);
-        appContext.startActivity(intent);
-        onView((withId(R.id.bargraph))).check(matches(withText("Alarm")));
-        Thread.sleep(500);
-    }
-
 }

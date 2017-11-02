@@ -47,14 +47,13 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/btnCreate"
+        android:id="@+id/btnSetColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/radioGroup"
-        android:onClick="createGraph"
-        android:layout_marginEnd="13dp"
-        android:text="@string/create" />
+        android:layout_alignStart="@+id/btnCreate"
+        android:layout_below="@+id/btnCreate"
+        android:layout_marginTop="13dp"
+        android:text="Color" />
 
 
 </RelativeLayout>

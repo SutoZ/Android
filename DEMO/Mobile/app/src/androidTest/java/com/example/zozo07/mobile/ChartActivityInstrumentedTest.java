@@ -1,6 +1,7 @@
 package com.example.zozo07.mobile;
 
 import android.content.Context;
+import android.support.test.espresso.ViewAssertion;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.concretepage.android.R;
@@ -13,6 +14,8 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.doubleClick;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -57,6 +60,11 @@ public class ChartActivityInstrumentedTest{
     public void checkIfBarChart_Changed_By_RadioButton_Sunday_Click_Not_Null() {
         onView(withId(R.id.sunday)).perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.bargraph)).check((ViewAssertion) doubleClick());
         assertNotNull(withId(R.id.bargraph));
+    }
+    @Test
+    public void asd (){
+        onView(withId(R.id.bargraph)).check((ViewAssertion) doubleClick());
     }
 }

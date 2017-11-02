@@ -4,30 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.PickerActions;
-import android.support.test.runner.AndroidJUnit4;
-import android.view.View;
 import android.widget.TimePicker;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import com.concretepage.android.R;
-import com.github.mikephil.charting.charts.BarChart;
-
-import java.io.InterruptedIOException;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
 import static org.junit.Assert.*;
 
 /**

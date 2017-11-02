@@ -1,5 +1,6 @@
 package com.example.zozo07.mobile;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +19,13 @@ import java.util.ArrayList;
 public class ChartActivity extends AppCompatActivity{
 
     private BarChart barChart;
-    private RadioButton rbA, rbC, rbD;
+    //private RadioButton rbA, rbC, rbD;
 
     private BarDataSet barDataSet;
     private ArrayList<BarEntry> barEntries;
     private ArrayList<String> theTitles;
     private BarData theData;
+    private int[] colors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +33,7 @@ public class ChartActivity extends AppCompatActivity{
         setContentView(R.layout.activity_chart);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
-        rbA = (RadioButton) findViewById(R.id.weekDays);
-        rbC = (RadioButton) findViewById(R.id.saturday);
-        rbD = (RadioButton) findViewById(R.id.sunday);
-        Button btnCreate = (Button) findViewById(R.id.btnCreate);
+        Button btnColor = (Button) findViewById(R.id.btnSetColor);
 
 
 
@@ -50,6 +49,7 @@ public class ChartActivity extends AppCompatActivity{
         theTitles.add("Sleep");
         theTitles.add("Vacation");
 
+        colors = new int[] {Color.GREEN, Color.RED, Color.BLUE};
 
         theData = new BarData(theTitles, barDataSet);
         barChart.setData(theData);
@@ -58,19 +58,19 @@ public class ChartActivity extends AppCompatActivity{
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
 
+    btnColor.setOnClickListener(new View.OnClickListener(){
 
-        btnCreate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                createBarGraph(new BarEntry(50f, 0), new BarEntry(100f, 1), new BarEntry(20f, 2), barEntries, theTitles, barDataSet, theData);
-            }
-        });
+        @Override
+        public void onClick(View v) {
+            barDataSet.setColors(colors);
+        }
+    });
 
         registerButtons();
 
     }
 
-    private void createBarGraph(BarEntry e, BarEntry e2, BarEntry e3, ArrayList<BarEntry> barEntries, ArrayList<String> theTitles, BarDataSet barDataSet, BarData theData) {
+    private void createBarGraph(BarEntry e, BarEntry e2, BarEntry e3, ArrayList<BarEntry> barEntries, ArrayList<String> theTitles, BarDataSet barDataSet, BarData theData, int[] colors) {
         barEntries = new ArrayList<>();
         barEntries.add(e);
         barEntries.add(e2);
@@ -83,6 +83,7 @@ public class ChartActivity extends AppCompatActivity{
         theTitles.add("Sleep");
         theTitles.add("Vacation");
 
+        barDataSet.setColors(colors);
 
         theData = new BarData(theTitles, barDataSet);
         barChart.setData(theData);
@@ -126,15 +127,15 @@ public class ChartActivity extends AppCompatActivity{
     };
 
     private void sunday() {
-        createBarGraph(new BarEntry(30f, 0), new BarEntry(60f, 1), new BarEntry(100f, 2), barEntries, theTitles, barDataSet, theData);
+        createBarGraph(new BarEntry(30f, 0), new BarEntry(60f, 1), new BarEntry(100f, 2), barEntries, theTitles, barDataSet, theData, new int[] {Color.RED, Color.GREEN, Color.BLUE});
     }
 
     private void saturday() {
-        createBarGraph(new BarEntry(20f, 0), new BarEntry(50f, 1), new BarEntry(90f, 2), barEntries, theTitles, barDataSet, theData);
+        createBarGraph(new BarEntry(20f, 0), new BarEntry(50f, 1), new BarEntry(90f, 2), barEntries, theTitles, barDataSet, theData, new int[] {Color.GREEN, Color.BLUE, Color.RED});
     }
 
     private void weekDays() {
-        createBarGraph(new BarEntry(80f, 0), new BarEntry(70f, 1), new BarEntry(20f, 2), barEntries, theTitles, barDataSet, theData);
+        createBarGraph(new BarEntry(80f, 0), new BarEntry(70f, 1), new BarEntry(20f, 2), barEntries, theTitles, barDataSet, theData, new int[] {Color.BLUE, Color.YELLOW, Color.MAGENTA});
     }
 
     protected void killBarChart() {

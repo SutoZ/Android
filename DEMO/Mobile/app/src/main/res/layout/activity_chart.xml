@@ -30,30 +30,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Weekdays" />
+            android:text="@string/weekdays" />
 
         <RadioButton
             android:id="@+id/saturday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Saturday" />
+            android:text="@string/saturday" />
 
         <RadioButton
             android:id="@+id/sunday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sunday" />
+            android:text="@string/sunday" />
 
     </RadioGroup>
 
-    <Button
-        android:id="@+id/btnSetColor"
+    <TextView
+        android:id="@+id/tvSleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btnCreate"
-        android:layout_below="@+id/btnCreate"
-        android:layout_marginTop="13dp"
-        android:text="Color" />
+        android:gravity="center"
+        android:text="TextView"
+        android:layout_below="@+id/tvAlarm"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="17dp" />
+
+    <TextView
+        android:id="@+id/tvAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="TextView"
+        android:layout_alignTop="@+id/radioGroup"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="9dp" />
+
+    <TextView
+        android:id="@+id/tvVacation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="TextView"
+        android:layout_alignBottom="@+id/radioGroup"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvAlarm"
+        android:layout_alignBottom="@+id/tvAlarm"
+        android:layout_marginEnd="13dp"
+        android:layout_toStartOf="@+id/tvAlarm"
+        android:text="Alarm" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvSleep"
+        android:layout_alignBottom="@+id/tvSleep"
+        android:layout_alignStart="@+id/textView4"
+        android:text="Sleep" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvVacation"
+        android:layout_alignBottom="@+id/tvVacation"
+        android:layout_alignEnd="@+id/textView4"
+        android:text="Vacation" />
 
 
 </RelativeLayout>

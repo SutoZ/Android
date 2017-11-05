@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.concretepage.android.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -26,6 +26,7 @@ public class ChartActivity extends AppCompatActivity{
     private ArrayList<String> theTitles;
     private BarData theData;
     private int[] colors;
+    private TextView tvAlarm, tvSleep, tvVacation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,9 @@ public class ChartActivity extends AppCompatActivity{
         setContentView(R.layout.activity_chart);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
-        Button btnColor = (Button) findViewById(R.id.btnSetColor);
-
+        tvAlarm = (TextView) findViewById(R.id.tvAlarm);
+        tvSleep = (TextView) findViewById(R.id.tvSleep);
+        tvVacation = (TextView) findViewById(R.id.tvVacation);
 
 
         barEntries = new ArrayList<>();
@@ -58,23 +60,21 @@ public class ChartActivity extends AppCompatActivity{
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
 
-    btnColor.setOnClickListener(new View.OnClickListener(){
-
-        @Override
-        public void onClick(View v) {
-            barDataSet.setColors(colors);
-        }
-    });
-
         registerButtons();
+
 
     }
 
-    private void createBarGraph(BarEntry e, BarEntry e2, BarEntry e3, ArrayList<BarEntry> barEntries, ArrayList<String> theTitles, BarDataSet barDataSet, BarData theData, int[] colors) {
+
+    private void createBarGraph(BarEntry data, BarEntry sleep, BarEntry vacation, ArrayList<BarEntry> barEntries, ArrayList<String> theTitles, BarDataSet barDataSet, BarData theData, int[] colors) {
+      // tvAlarm.setText(String.format("%d", data.getVal()));
+      // tvSleep.setText(String.format("%d", sleep.getVal()));
+      // tvVacation.setText(String.format("%d", vacation.getVal()));
+
         barEntries = new ArrayList<>();
-        barEntries.add(e);
-        barEntries.add(e2);
-        barEntries.add(e3);
+        barEntries.add(data);
+        barEntries.add(sleep);
+        barEntries.add(vacation);
 
         barDataSet = new BarDataSet(barEntries, "Data");
 
@@ -127,15 +127,25 @@ public class ChartActivity extends AppCompatActivity{
     };
 
     private void sunday() {
+        tvAlarm.setText("30");
+        tvSleep.setText("60");
+        tvVacation.setText("100");
         createBarGraph(new BarEntry(30f, 0), new BarEntry(60f, 1), new BarEntry(100f, 2), barEntries, theTitles, barDataSet, theData, new int[] {Color.RED, Color.GREEN, Color.BLUE});
     }
 
     private void saturday() {
+        tvAlarm.setText("20");
+        tvSleep.setText("50");
+        tvVacation.setText("90");
         createBarGraph(new BarEntry(20f, 0), new BarEntry(50f, 1), new BarEntry(90f, 2), barEntries, theTitles, barDataSet, theData, new int[] {Color.GREEN, Color.BLUE, Color.RED});
     }
 
     private void weekDays() {
+        tvAlarm.setText("80");
+        tvSleep.setText("70");
+        tvVacation.setText("20");
         createBarGraph(new BarEntry(80f, 0), new BarEntry(70f, 1), new BarEntry(20f, 2), barEntries, theTitles, barDataSet, theData, new int[] {Color.BLUE, Color.YELLOW, Color.MAGENTA});
+
     }
 
     protected void killBarChart() {

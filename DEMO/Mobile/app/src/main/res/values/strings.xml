@@ -8,4 +8,10 @@
     <string name="alarm_on_off">Alarm On/Off</string>
     <string name="stop">STOP</string>
     <string name="create">Create</string>
+    <string name="weekdays">Weekdays</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="alarm">Alarm</string>
+    <string name="vacation">Vacation</string>
+    <string name="sleep">Sleep</string>
 </resources>

@@ -61,16 +61,10 @@ public class ChartActivity extends AppCompatActivity{
         barChart.setScaleEnabled(true);
 
         registerButtons();
-
-
     }
 
 
     private void createBarGraph(BarEntry data, BarEntry sleep, BarEntry vacation, ArrayList<BarEntry> barEntries, ArrayList<String> theTitles, BarDataSet barDataSet, BarData theData, int[] colors) {
-      // tvAlarm.setText(String.format("%d", data.getVal()));
-      // tvSleep.setText(String.format("%d", sleep.getVal()));
-      // tvVacation.setText(String.format("%d", vacation.getVal()));
-
         barEntries = new ArrayList<>();
         barEntries.add(data);
         barEntries.add(sleep);
@@ -145,7 +139,6 @@ public class ChartActivity extends AppCompatActivity{
         tvSleep.setText("70");
         tvVacation.setText("20");
         createBarGraph(new BarEntry(80f, 0), new BarEntry(70f, 1), new BarEntry(20f, 2), barEntries, theTitles, barDataSet, theData, new int[] {Color.BLUE, Color.YELLOW, Color.MAGENTA});
-
     }
 
     protected void killBarChart() {

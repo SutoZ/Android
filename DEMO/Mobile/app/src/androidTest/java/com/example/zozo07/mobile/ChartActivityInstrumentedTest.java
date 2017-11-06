@@ -5,15 +5,27 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.assertion.ViewAssertions;
+import android.support.test.espresso.core.deps.guava.base.Optional;
+import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.concretepage.android.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Text;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -25,7 +37,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withContentDesc
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.Matchers.allOf;
 
 /**
@@ -35,97 +49,162 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class ChartActivityInstrumentedTest{
 
+    @Rule
+    public ActivityTestRule<ChartActivity> chartActivity = new ActivityTestRule<ChartActivity>(ChartActivity.class);
+
+
     private ChartActivity testChartActivity;
     private BarChart testBarChart;
     private Context appContext;
-/*
-    @Rule
-    public ActivityTestRule<ChartActivity> chartActivity = new ActivityTestRule<ChartActivity>(ChartActivity.class);
-/*
+    private TextView tvAlarm;
+
+    private String WEEKDAY_ALARM    = "80";
+    private String SATURDAY_ALARM   = "20";
+    private String SUNDAY_ALARM     = "30";
+
+    private String WEEKDAY_SLEEP    = "70";
+    private String SATURDAY_SLEEP   = "50";
+    private String SUNDAY_SLEEP     = "60";
+
+    private String WEEKDAY_VACATION    = "20";
+    private String SATURDAY_VACATION  = "90";
+    private String SUNDAY_VACATION     = "100";
+
+        @Test
+        public void checkIfBarChartIsDisplayed_InterruptedException() throws InterruptedException {
+            onView((withId(R.id.bargraph))).check(matches(isDisplayed()));
+            Thread.sleep(500);
+        }
+
+        @Test
+        public void checkIfBarChart_Changed_By_RadioButton_weekDays_Click_Not_Null() {
+            onView(withId(R.id.weekDays)).perform(click());
+            onView(withId(R.id.bargraph)).perform(click());
+            assertNotNull(withId(R.id.bargraph));
+        }
+
+        @Test
+        public void checkIfBarChart_Changed_By_RadioButton_Saturday_Click_Not_Null() {
+            onView(withId(R.id.saturday)).perform(click());
+            onView(withId(R.id.bargraph)).perform(click());
+            assertNotNull(withId(R.id.bargraph));
+        }
+
+        @Test
+        public void checkIfBarChart_Changed_By_RadioButton_Sunday_Click_Not_Null() {
+            onView(withId(R.id.sunday)).perform(click());
+            onView(withId(R.id.bargraph)).perform(click());
+            assertNotNull(withId(R.id.bargraph));
+        }
 
     @Test
-    public void checkIfBarChartIsDisplayed_InterruptedException() throws InterruptedException {
-        onView((withId(R.id.bargraph))).check(matches(isDisplayed()));
-        Thread.sleep(500);
-    }
-
-    @Test
-    public void checkIfBarChart_Changed_By_RadioButton_weekDays_Click_Not_Null() {
-        onView(withId(R.id.weekDays)).perform(click());
-        onView(withId(R.id.bargraph)).perform(click());
-        assertNotNull(withId(R.id.bargraph));
-    }
-
-    @Test
-    public void checkIfBarChart_Changed_By_RadioButton_Saturday_Click_Not_Null() {
-        onView(withId(R.id.saturday)).perform(click());
-        onView(withId(R.id.bargraph)).perform(click());
-        assertNotNull(withId(R.id.bargraph));
-    }
-
-    @Test
-    public void checkIfBarChart_Changed_By_RadioButton_Sunday_Click_Not_Null() {
-        onView(withId(R.id.sunday)).perform(click());
-        onView(withId(R.id.bargraph)).perform(click());
-        onView(withId(R.id.bargraph)).check((ViewAssertion) doubleClick());
-        assertNotNull(withId(R.id.bargraph));
-    }
-
-    /*
-    @Test
-    public void recordedTest_openWeekDaysChart() {
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Open navigation drawer"),
-                        withParent(withId(R.id.toolbar)),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
-
-        ViewInteraction checkedTextView = onView(
-                allOf(withId(R.id.design_menu_item_text), withText("Graphs"), isDisplayed()));
-        checkedTextView.perform(click());
-
+    public void weekDay_Alarm_value_Equals_textViewValue() {
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.weekDays), withText("Weekdays"),
                         withParent(allOf(withId(R.id.radioGroup),
                                 withParent(withId(R.id.chart_activity)))),
                         isDisplayed()));
         appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvAlarm)).check(ViewAssertions.matches(withText(WEEKDAY_ALARM)));
     }
-*/
-
-
 
     @Test
-    public void asd() {
-
-
-        appContext = InstrumentationRegistry.getTargetContext();
-        Intent intent = new Intent(appContext, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        appContext.startActivity(intent);
-
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Open navigation drawer"),
-                        withParent(withId(R.id.toolbar)),
+    public void saturday_Alarm_value_Equals_textViewValue() {
+        ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.saturday), withText("Saturday"),
+                        withParent(allOf(withId(R.id.radioGroup),
+                                withParent(withId(R.id.chart_activity)))),
                         isDisplayed()));
-        appCompatImageButton.perform(click());
+        appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvAlarm)).check(ViewAssertions.matches(withText(SATURDAY_ALARM)));
+    }
 
-        ViewInteraction checkedTextView = onView(
-                allOf(withId(R.id.design_menu_item_text), withText("Graphs"), isDisplayed()));
-        checkedTextView.perform(click());
+    @Test
+    public void sunday_Alarm_value_Equals_textViewValue() {
 
+
+        ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.sunday), withText("Sunday"),
+                        withParent(allOf(withId(R.id.radioGroup),
+                                withParent(withId(R.id.chart_activity)))),
+                        isDisplayed()));
+        appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvAlarm)).check(ViewAssertions.matches(withText(SUNDAY_ALARM)));
+    }
+
+    @Test
+    public void weekDay_Sleep_value_Equals_textViewValue() {
+
+             ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.weekDays), withText("Weekdays"),
+                        withParent(allOf(withId(R.id.radioGroup),
+                                withParent(withId(R.id.chart_activity)))),
+                        isDisplayed()));
+        appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvSleep)).check(ViewAssertions.matches(withText(WEEKDAY_SLEEP)));
+    }
+
+    @Test
+    public void saturday_Sleep_value_Equals_textViewValue() {
+        ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.saturday), withText("Saturday"),
+                        withParent(allOf(withId(R.id.radioGroup),
+                                withParent(withId(R.id.chart_activity)))),
+                        isDisplayed()));
+        appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvSleep)).check(ViewAssertions.matches(withText(SATURDAY_SLEEP)));
+    }
+
+    @Test
+    public void sunday_Sleep_value_Equals_textViewValue() {
+        ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.sunday), withText("Sunday"),
+                        withParent(allOf(withId(R.id.radioGroup),
+                                withParent(withId(R.id.chart_activity)))),
+                        isDisplayed()));
+        appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvSleep)).check(ViewAssertions.matches(withText(SUNDAY_SLEEP)));
+    }
+
+    @Test
+    public void weekDay_Vacation_value_Equals_textViewValue() {
         ViewInteraction appCompatRadioButton = onView(
                 allOf(withId(R.id.weekDays), withText("Weekdays"),
                         withParent(allOf(withId(R.id.radioGroup),
                                 withParent(withId(R.id.chart_activity)))),
                         isDisplayed()));
         appCompatRadioButton.perform(click());
-
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(WEEKDAY_VACATION)));
     }
 
+    @Test
+    public void saturday_Vacation_value_Equals_textViewValue() {
+        ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.saturday), withText("Saturday"),
+                        withParent(allOf(withId(R.id.radioGroup),
+                                withParent(withId(R.id.chart_activity)))),
+                        isDisplayed()));
+        appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(SATURDAY_VACATION)));
+    }
 
-
-
-
-
+    @Test
+    public void sunday_Vacation_value_Equals_textViewValue() {
+        ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.sunday), withText("Sunday"),
+                        withParent(allOf(withId(R.id.radioGroup),
+                                withParent(withId(R.id.chart_activity)))),
+                        isDisplayed()));
+        appCompatRadioButton.perform(click());
+        onView(withId(R.id.bargraph)).perform(click());
+        onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(SUNDAY_VACATION)));
+    }
 }

@@ -2,10 +2,13 @@ package com.example.zozo07.mobile;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import android.widget.ToggleButton;
 import com.concretepage.android.R;
 
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class AlarmActivity extends Activity  implements View.OnClickListener{
@@ -27,9 +31,16 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     private TextView alarmTextView;
     private Context context;
 
+
+    private static int YEAR = 2017;
+    private static int MONTH = 12;
+    private static int DAY = 25;
+  //  private DialogInterface.OnClickListener onDiscardButtonClickListener;
+
     public static AlarmActivity instance() {
         return inst;
     }
+
 
     @Override
     public void onStart() {
@@ -41,7 +52,73 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_my);       //super után ez a legelső!!!
+
+        findViews();
+
+
+   //    setHolidayDate();
+
+        //Date currentTime = Calendar.getInstance().getTime();
+        Date currentTime = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentTime);
+
+        if ((int)calendar.get(Calendar.YEAR) == YEAR &&
+                (int)calendar.get(Calendar.MONTH) + 1 == MONTH &&
+                (int)calendar.get(Calendar.DAY_OF_MONTH) == DAY) {
+
+            DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // User clicked "Discard" button, close the current activity.
+                    NavUtils.navigateUpFromSameTask(AlarmActivity.this);
+                    finish();
+                }
+            };
+
+            showCancelWhenEditDialog(discardButtonClickListener);
+        }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // User clicked "Discard" button, close the current activity.
+                finish();
+            }
+        };
+
+        // Show dialog that there are unsaved changes
+        showCancelWhenEditDialog(discardButtonClickListener);
+
+    }
+
+    private void showCancelWhenEditDialog(DialogInterface.OnClickListener onDiscardButtonClickListener) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("It's vacation day! You cannot set a timer!");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Discard", onDiscardButtonClickListener);
+
+      /*
+        builder.setNegativeButton("Keep Editing", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null) dialog.dismiss();
+            }
+        });
+*/
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void findViews() {
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
         alarmTextView = (TextView) findViewById(R.id.alarmText);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
@@ -49,12 +126,22 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         Button btnStop = (Button) findViewById(R.id.btnStop);
         btnStop.setOnClickListener(this);
     }
+/*
+    private void setHolidayDate() {
+        calendar = Calendar.getInstance();
+        calendar.set(YEAR,MONTH, DAY);
 
+
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setTime(calendar.getTimeInMillis());
+    }
+*/
     @Override
     public void onClick(View v) {
-        AlarmService.cancelTask(context);
-        stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
+        //AlarmService.cancelTask(context);
+        //stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
         AlarmReceiver.getRingtone().stop();
+        finish();
     }
 
     public void onToggleClicked(View view) {

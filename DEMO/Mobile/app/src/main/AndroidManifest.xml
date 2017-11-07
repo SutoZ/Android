@@ -3,6 +3,11 @@
     package="com.concretepage.android">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <permission android:name="android.permission.SET_TIME"
+        android:protectionLevel="signatureOrSystem" />
+    <permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
+        android:protectionLevel="signature" />
 
     <application
         android:allowBackup="false"
@@ -18,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.zozo07.mobile.AlarmActivity" />
+        <activity android:name="com.example.zozo07.mobile.AlarmActivity"
+            android:parentActivityName="com.example.zozo07.mobile.MainActivity"/>
 
         <receiver android:name="com.example.zozo07.mobile.AlarmReceiver" />
 

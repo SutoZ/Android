@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.concretepage.android.R;
@@ -35,7 +37,6 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     private static int YEAR = 2017;
     private static int MONTH = 12;
     private static int DAY = 25;
-  //  private DialogInterface.OnClickListener onDiscardButtonClickListener;
 
     public static AlarmActivity instance() {
         return inst;
@@ -56,10 +57,6 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
         findViews();
 
-
-   //    setHolidayDate();
-
-        //Date currentTime = Calendar.getInstance().getTime();
         Date currentTime = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentTime);
@@ -79,8 +76,6 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
             showCancelWhenEditDialog(discardButtonClickListener);
         }
-
-
     }
 
     @Override
@@ -106,14 +101,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         builder.setCancelable(false);
         builder.setPositiveButton("Discard", onDiscardButtonClickListener);
 
-      /*
-        builder.setNegativeButton("Keep Editing", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (dialog != null) dialog.dismiss();
-            }
-        });
-*/
+
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -126,37 +114,40 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         Button btnStop = (Button) findViewById(R.id.btnStop);
         btnStop.setOnClickListener(this);
     }
-/*
-    private void setHolidayDate() {
-        calendar = Calendar.getInstance();
-        calendar.set(YEAR,MONTH, DAY);
 
-
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setTime(calendar.getTimeInMillis());
-    }
-*/
     @Override
     public void onClick(View v) {
         //AlarmService.cancelTask(context);
         //stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
-        AlarmReceiver.getRingtone().stop();
+        AlarmReceiver.getMediaPlayer().stop();
         finish();
     }
 
     public void onToggleClicked(View view) {
         if (((ToggleButton) view).isChecked()) {
-            Log.d("MyActivity", "Alarm On");
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+
+            int hour, minute = 0;
+
+            hour = alarmTimePicker.getCurrentHour();
+            minute = alarmTimePicker.getCurrentMinute();
+
+            if (Build.VERSION.SDK_INT >= 23){
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+            }
+            else{
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+            }
+
+            Toast.makeText(getApplicationContext(), "Alarm set for " + hour + ":" + minute, Toast.LENGTH_LONG).show();
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0); //important!
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
             setAlarmText("");
-            Log.d("MyActivity", "Alarm Off");
         }
     }
 

@@ -119,8 +119,13 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     public void onClick(View v) {
         //AlarmService.cancelTask(context);
         //stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
-        AlarmReceiver.getMediaPlayer().stop();
-        finish();
+
+        TaskDialog taskDialog = new TaskDialog(AlarmActivity.this);
+        taskDialog.show();
+
+
+       // AlarmReceiver.getMediaPlayer().stop();
+       // finish();
     }
 
     public void onToggleClicked(View view) {

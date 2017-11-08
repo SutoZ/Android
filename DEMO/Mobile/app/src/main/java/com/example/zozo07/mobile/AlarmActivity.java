@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,18 +27,52 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    private TimePicker alarmTimePicker;
+    private static TimePicker alarmTimePicker;
     private static AlarmActivity inst;
     private TextView alarmTextView;
     private Context context;
+    private static boolean active = false;
+    private static Calendar vacationCalendar;
+
+    //maybe not static
+    public static Calendar getVacationCalendar() {return vacationCalendar; }
+
+    public static Calendar setVacationCalendar(Calendar newCalendar)
+                                                    {return vacationCalendar = newCalendar; }
+
+    public static boolean getActive() {
+        return active;
+    }
+
+    public static TimePicker getAlarmTimePicker() {return alarmTimePicker; }
+
+    public static TimePicker setAlarmTimePicker(TimePicker newPicker)
+                                                    {return alarmTimePicker = newPicker;}
+
+    public static boolean setActive(boolean newValue) {return active = newValue; }
 
 
-    private static int YEAR = 2017;
+    private static int YEAR;
+
+
     private static int MONTH = 12;
     private static int DAY = 25;
 
     public static AlarmActivity instance() {
         return inst;
+    }
+
+
+    public static void setMONTH(int MONTH) {
+        AlarmActivity.MONTH = MONTH;
+    }
+
+    public static void setDAY(int DAY) {
+        AlarmActivity.DAY = DAY;
+    }
+
+    public static void setYEAR(int YEAR) {
+        AlarmActivity.YEAR = YEAR;
     }
 
 
@@ -58,12 +91,12 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         findViews();
 
         Date currentTime = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentTime);
+        vacationCalendar = Calendar.getInstance();
+        vacationCalendar.setTime(currentTime);
 
-        if ((int)calendar.get(Calendar.YEAR) == YEAR &&
-                (int)calendar.get(Calendar.MONTH) + 1 == MONTH &&
-                (int)calendar.get(Calendar.DAY_OF_MONTH) == DAY) {
+        if ((int) vacationCalendar.get(Calendar.YEAR) == YEAR &&
+                (int) vacationCalendar.get(Calendar.MONTH) + 1 == MONTH &&
+                (int) vacationCalendar.get(Calendar.DAY_OF_MONTH) == DAY) {
 
             DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
                 @Override
@@ -81,18 +114,21 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if ((int) vacationCalendar.get(Calendar.YEAR) == YEAR &&
+                (int) vacationCalendar.get(Calendar.MONTH) + 1 == MONTH &&
+                (int) vacationCalendar.get(Calendar.DAY_OF_MONTH) == DAY) {
 
-        DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // User clicked "Discard" button, close the current activity.
-                finish();
-            }
-        };
+            DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // User clicked "Discard" button, close the current activity.
+                    finish();
+                }
+            };
 
-        // Show dialog that there are unsaved changes
-        showCancelWhenEditDialog(discardButtonClickListener);
-
+            // Show dialog that there are unsaved changes
+            showCancelWhenEditDialog(discardButtonClickListener);
+        }
     }
 
     private void showCancelWhenEditDialog(DialogInterface.OnClickListener onDiscardButtonClickListener) {
@@ -101,6 +137,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         builder.setCancelable(false);
         builder.setPositiveButton("Discard", onDiscardButtonClickListener);
 
+        active = false;
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -116,40 +153,33 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View v) {
-        //AlarmService.cancelTask(context);
-        //stopService(new Intent(AlarmActivity.this, AlarmReceiver.class));
-
-        TaskDialog taskDialog = new TaskDialog(AlarmActivity.this);
-        taskDialog.show();
-
-
-       // AlarmReceiver.getMediaPlayer().stop();
-       // finish();
+    public void onClick(View v) {       //btnStop!!
+        TaskDialogActivity taskDialogActivity = new TaskDialogActivity(AlarmActivity.this);
+        taskDialogActivity.show();
     }
 
-    public void onToggleClicked(View view) {
+    public void onToggleClicked(View view) {        //START!!
         if (((ToggleButton) view).isChecked()) {
-            Calendar calendar = Calendar.getInstance();
-
+            vacationCalendar = Calendar.getInstance();
             int hour, minute = 0;
 
             hour = alarmTimePicker.getCurrentHour();
             minute = alarmTimePicker.getCurrentMinute();
 
             if (Build.VERSION.SDK_INT >= 23){
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
+                vacationCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                vacationCalendar.set(Calendar.MINUTE, minute);
             }
             else{
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
+                vacationCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                vacationCalendar.set(Calendar.MINUTE, minute);
             }
 
+            active = true;
             Toast.makeText(getApplicationContext(), "Alarm set for " + hour + ":" + minute, Toast.LENGTH_LONG).show();
             Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0); //important!
-            alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+            alarmManager.set(AlarmManager.RTC, vacationCalendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
             setAlarmText("");

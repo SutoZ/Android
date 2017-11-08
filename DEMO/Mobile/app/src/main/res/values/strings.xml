@@ -15,4 +15,6 @@
     <string name="vacation">Vacation</string>
     <string name="sleep">Sleep</string>
     <string name="solve">Please solve the following tasks!</string>
+    <string name="notActive">There are no set alarms!</string>
+    <string name="set_date">Set Date</string>
 </resources>

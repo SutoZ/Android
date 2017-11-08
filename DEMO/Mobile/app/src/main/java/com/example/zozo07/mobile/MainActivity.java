@@ -1,10 +1,10 @@
 
 package com.example.zozo07.mobile;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
 import com.concretepage.android.R;
 
 
@@ -20,6 +22,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+    private TextView tvStatus;
     public static String PACKAGE_NAME;
 
 
@@ -32,6 +35,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //Set a toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+
+        tvStatus = (TextView) findViewById(R.id.tvStatus);
+
+       // checkStatus();
+
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
@@ -40,6 +48,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         //Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkStatus();
+    }
+
+    private void checkStatus() {
+        if (AlarmActivity.getActive()){
+            tvStatus.setText("Alarm set for " +
+                    AlarmActivity.getAlarmTimePicker().getCurrentHour() + ":" +
+                    AlarmActivity.getAlarmTimePicker().getCurrentMinute());
+        }
+        else{
+            tvStatus.setText(R.string.notActive);
+        }
     }
 
     @Override
@@ -83,25 +109,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     }
                 });
     }
-
-    public boolean onNavigationItemSelected(MenuItem menuItem) {
-        selectDrawerItem(menuItem);
-        return true;
-    }
-
+    
     public void selectDrawerItem(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.alarms:
                startActivity(new Intent(this, AlarmActivity.class));
                 break;
             case R.id.graphs:
-                startActivity(new Intent(this, ChartActivity.class));
                 break;
-            case R.id.sleep:
-                break;
-            case R.id.settings:     //Might be tricky.
+            default:
                 break;
         }
+    }
+
+    public void showVacationDatePickerDialog(View view) {
+        DialogFragment newFragment = new VacationDatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }
 

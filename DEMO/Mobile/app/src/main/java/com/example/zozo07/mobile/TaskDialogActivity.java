@@ -14,10 +14,10 @@ import com.concretepage.android.R;
  * Created by Zozo07 on 2017.11.07..
  */
 
-public class TaskDialog extends Dialog implements android.view.View.OnClickListener {
+public class TaskDialogActivity extends Dialog implements android.view.View.OnClickListener {
 
     private Activity activity;
-    private Dialog d;
+    private Dialog dialog;
     private Button ok, cancel;
     private TextView tvTask;
     private EditText etSolution;
@@ -25,7 +25,7 @@ public class TaskDialog extends Dialog implements android.view.View.OnClickListe
     int num2 = 6;
 
 
-    public TaskDialog(Activity activity) {
+    public TaskDialogActivity(Activity activity) {
         super(activity);
 
         this.activity = activity;
@@ -58,6 +58,7 @@ public class TaskDialog extends Dialog implements android.view.View.OnClickListe
         switch (v.getId()) {
             case R.id.btnOK:
                 if (doTheMath(num1, num2) == Integer.parseInt(etSolution.getText().toString())) {
+                    AlarmActivity.setActive(false);
                     AlarmReceiver.getMediaPlayer().stop();
                     activity.finish();
                 }

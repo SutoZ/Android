@@ -17,4 +17,5 @@
     <string name="solve">Please solve the following tasks!</string>
     <string name="notActive">There are no set alarms!</string>
     <string name="set_date">Set Date</string>
+    <string name="no_occasion">No specal occasions added yet!</string>
 </resources>

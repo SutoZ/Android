@@ -23,6 +23,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private TextView tvStatus;
+
+    public static void setTvDate(TextView newDate) {
+        tvDate = newDate;
+    }
+
+    private static TextView tvDate;
     public static String PACKAGE_NAME;
 
 
@@ -37,8 +43,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
         tvStatus = (TextView) findViewById(R.id.tvStatus);
+        tvDate = (TextView) findViewById(R.id.tvDate);
 
-       // checkStatus();
+        // checkStatus();
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
@@ -58,14 +65,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void checkStatus() {
-        if (AlarmActivity.getActive()){
+        if (AlarmActivity.getActive()) {
             tvStatus.setText("Alarm set for " +
                     AlarmActivity.getAlarmTimePicker().getCurrentHour() + ":" +
                     AlarmActivity.getAlarmTimePicker().getCurrentMinute());
-        }
-        else{
+        } else {
             tvStatus.setText(R.string.notActive);
         }
+        if (AlarmActivity.getYEAR() == 0) {
+            tvDate.setText(R.string.no_occasion);
+        } else {
+        /*    tvDate.setText("Special occasion: "
+                    + AlarmActivity.getYEAR() + "."
+                    + AlarmActivity.getMONTH() + "." + AlarmActivity.getDAY());
+                    */
+        }
+
     }
 
     @Override
@@ -109,11 +124,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     }
                 });
     }
-    
+
     public void selectDrawerItem(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.alarms:
-               startActivity(new Intent(this, AlarmActivity.class));
+                startActivity(new Intent(this, AlarmActivity.class));
                 break;
             case R.id.graphs:
                 break;

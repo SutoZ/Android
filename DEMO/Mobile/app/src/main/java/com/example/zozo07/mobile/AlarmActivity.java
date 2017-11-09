@@ -53,15 +53,18 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
 
     private static int YEAR;
+    private static int MONTH;
+    private static int DAY;
 
+    public static int getYEAR() { return YEAR; }
 
-    private static int MONTH = 12;
-    private static int DAY = 25;
+    public static int getMONTH() { return MONTH; }
+
+    public static int getDAY() { return DAY; }
 
     public static AlarmActivity instance() {
         return inst;
     }
-
 
     public static void setMONTH(int MONTH) {
         AlarmActivity.MONTH = MONTH;

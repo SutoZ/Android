@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -37,5 +38,11 @@ public class VacationDatePickerFragment extends DialogFragment implements
         AlarmActivity.setYEAR(year);
         AlarmActivity.setMONTH(month + 1);      //Be Careful!!
         AlarmActivity.setDAY(dayOfMonth);
+
+        String finalDate = "Special occasion: " + AlarmActivity.getYEAR() + "." + AlarmActivity.getMONTH() + "." + AlarmActivity.getDAY();
+
+        TextView tvDate = new TextView(getContext());
+        tvDate.setText(finalDate);
+        MainActivity.setTvDate (tvDate);
     }
 }

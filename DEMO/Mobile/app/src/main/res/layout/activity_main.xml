@@ -36,12 +36,21 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="@string/set_date"
-                android:layout_below="@+id/tvStatus"
-                android:layout_alignStart="@+id/tvStatus"
                 android:onClick="showVacationDatePickerDialog"
-                android:layout_marginTop="39dp" />
+                android:layout_marginTop="35dp"
+                android:layout_below="@+id/tvDate"
+                android:layout_alignStart="@+id/tvStatus" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button2"
+        android:layout_below="@+id/tvStatus"
+        android:gravity="left"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp" />
 </RelativeLayout>
         </FrameLayout>
 

@@ -18,4 +18,5 @@
     <string name="notActive">There are no set alarms!</string>
     <string name="set_date">Set Date</string>
     <string name="no_occasion">No specal occasions added yet!</string>
+    <string name="toast_message">Alarm set for</string>
 </resources>

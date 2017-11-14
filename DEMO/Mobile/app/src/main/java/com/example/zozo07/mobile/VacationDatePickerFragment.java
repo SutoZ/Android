@@ -2,12 +2,15 @@ package com.example.zozo07.mobile;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -18,7 +21,7 @@ import java.util.Calendar;
 public class VacationDatePickerFragment extends DialogFragment implements
         DatePickerDialog.OnDateSetListener{
 
-
+    public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
 
     @NonNull
     @Override
@@ -41,8 +44,11 @@ public class VacationDatePickerFragment extends DialogFragment implements
 
         String finalDate = "Special occasion: " + AlarmActivity.getYEAR() + "." + AlarmActivity.getMONTH() + "." + AlarmActivity.getDAY();
 
-        TextView tvDate = new TextView(getContext());
-        tvDate.setText(finalDate);
-        MainActivity.setTvDate (tvDate);
+        Toast.makeText(getContext(), finalDate, Toast.LENGTH_LONG).show();
+
+        Intent datePickerIntent = new Intent(getActivity(), MainActivity.class);
+        datePickerIntent.putExtra("occasion", finalDate);
+        datePickerIntent.putExtra("activity", "DatePickerActivity");
+        startActivityForResult(datePickerIntent, MAIN_ACTIVITY_RESULT_CODE);
     }
 }

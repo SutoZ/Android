@@ -33,12 +33,9 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     private Context context;
     private static boolean active = false;
     private static Calendar vacationCalendar;
+    private Intent myIntent;
 
-    //maybe not static
-    public static Calendar getVacationCalendar() {return vacationCalendar; }
-
-    public static Calendar setVacationCalendar(Calendar newCalendar)
-                                                    {return vacationCalendar = newCalendar; }
+    public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
 
     public static boolean getActive() {
         return active;
@@ -89,7 +86,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);       //super után ez a legelső!!!
+        setContentView(R.layout.activity_my);       //Must be the first line after super!
 
         findViews();
 
@@ -144,6 +141,11 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+        myIntent = new Intent(getBaseContext(), MainActivity.class);
+        myIntent.putExtra("active", active);
+        myIntent.putExtra("activity", "AlarmActivity");
+     startActivityForResult(myIntent, MAIN_ACTIVITY_RESULT_CODE);
+
     }
 
     private void findViews() {
@@ -179,10 +181,18 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
             }
 
             active = true;
+
+
             Toast.makeText(getApplicationContext(), "Alarm set for " + hour + ":" + minute, Toast.LENGTH_LONG).show();
-            Intent myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
+            myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0); //important!
             alarmManager.set(AlarmManager.RTC, vacationCalendar.getTimeInMillis(), pendingIntent);
+
+            myIntent = new Intent(AlarmActivity.this, MainActivity.class);
+            myIntent.putExtra("active", active);
+            myIntent.putExtra("activity", "AlarmActivity");
+            startActivity(myIntent);
+
         } else {
             alarmManager.cancel(pendingIntent);
             setAlarmText("");

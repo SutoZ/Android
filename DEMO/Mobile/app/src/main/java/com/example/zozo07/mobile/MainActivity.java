@@ -3,6 +3,7 @@ package com.example.zozo07.mobile;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.concretepage.android.R;
 
+import java.util.Objects;
+
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -24,12 +27,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ActionBarDrawerToggle drawerToggle;
     private TextView tvStatus;
 
-    public static void setTvDate(TextView newDate) {
-        tvDate = newDate;
-    }
-
     private static TextView tvDate;
     public static String PACKAGE_NAME;
+    public static final String SPECIAL_OCCASION = "special_occasion";
+    public static final String ALARM_STATUS = "alarm_status";
+
+
+    private Intent vacationDatePickerIntent;
+    private Intent alarmActivityIntent;
 
 
     @Override
@@ -41,21 +46,44 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //Set a toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+/*
+        if (savedInstanceState != null){
+            tvStatus.setText(savedInstanceState.getString(ALARM_STATUS));
+            tvDate.setText(savedInstanceState.getString(SPECIAL_OCCASION));
+        } else {
+            */
+            tvStatus = (TextView) findViewById(R.id.tvStatus);
+            tvDate = (TextView) findViewById(R.id.tvDate);
 
-        tvStatus = (TextView) findViewById(R.id.tvStatus);
-        tvDate = (TextView) findViewById(R.id.tvDate);
+            mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawerToggle = setupDrawerToggle();
+            NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
+            //Setup a drawer view.
+            setupDrawerContent(nvDrawer);
 
-        // checkStatus();
+            //Tie DrawerLayout events to the ActionBarToggle
+            mDrawer.addDrawerListener(drawerToggle);
+        }
+ //   }
 
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = setupDrawerToggle();
-        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        //Setup a drawer view.
-        setupDrawerContent(nvDrawer);
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString(ALARM_STATUS, tvStatus.getText().toString());
+        savedInstanceState.putString(SPECIAL_OCCASION, tvDate.getText().toString());
 
-        //Tie DrawerLayout events to the ActionBarToggle
-        mDrawer.addDrawerListener(drawerToggle);
+                super.onSaveInstanceState(savedInstanceState);
+
     }
+
+    /*
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        tvDate.setText(savedInstanceState.getString(SPECIAL_OCCASION));
+        tvStatus.setText(savedInstanceState.getString(ALARM_STATUS));
+    }
+*/
 
     @Override
     protected void onResume() {
@@ -65,22 +93,34 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void checkStatus() {
-        if (AlarmActivity.getActive()) {
-            tvStatus.setText("Alarm set for " +
-                    AlarmActivity.getAlarmTimePicker().getCurrentHour() + ":" +
-                    AlarmActivity.getAlarmTimePicker().getCurrentMinute());
-        } else {
-            tvStatus.setText(R.string.notActive);
-        }
-        if (AlarmActivity.getYEAR() == 0) {
-            tvDate.setText(R.string.no_occasion);
-        } else {
-        /*    tvDate.setText("Special occasion: "
-                    + AlarmActivity.getYEAR() + "."
-                    + AlarmActivity.getMONTH() + "." + AlarmActivity.getDAY());
-                    */
+        tvStatus.setText(R.string.notActive);
+        Intent currentIntent = getIntent();
+        //String currentIntentSource = currentIntent.getExtras().getString("activity");
+        String currentIntentSource = currentIntent.getStringExtra("activity");
+
+        if (Objects.equals(currentIntentSource, "AlarmActivity")) {
+            alarmActivityIntent = getIntent();
+        } else if (Objects.equals(currentIntentSource, "DatePickerActivity")) {
+            vacationDatePickerIntent = getIntent();
         }
 
+        if (alarmActivityIntent != null) {
+            if (alarmActivityIntent.getExtras().getBoolean("active")) {
+                String time = "Alarm set for " +
+                        AlarmActivity.getAlarmTimePicker().getCurrentHour() + ":" +
+                        AlarmActivity.getAlarmTimePicker().getCurrentMinute();
+                tvStatus.setText(time);
+            }
+        }
+        if (vacationDatePickerIntent != null) {
+            if (AlarmActivity.getYEAR() == 0) {
+                tvDate.setText(R.string.no_occasion);
+            } else {
+                if (vacationDatePickerIntent.getExtras().getString("occasion") != null) {
+                    tvDate.setText(vacationDatePickerIntent.getExtras().getString("occasion"));
+                }
+            }
+        }
     }
 
     @Override
@@ -131,6 +171,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 startActivity(new Intent(this, AlarmActivity.class));
                 break;
             case R.id.graphs:
+                startActivity(new Intent(this, ChartActivity.class));
                 break;
             default:
                 break;

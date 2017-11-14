@@ -207,4 +207,9 @@ public class ChartActivityInstrumentedTest{
         onView(withId(R.id.bargraph)).perform(click());
         onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(SUNDAY_VACATION)));
     }
+
+
+    //UIAutomator tests
+
+
 }

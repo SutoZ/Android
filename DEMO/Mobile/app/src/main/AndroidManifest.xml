@@ -6,8 +6,9 @@
     <uses-sdk tools:overrideLibrary="android.support.test.uiautomator.v18"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERRACT_USERS_FULL" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="aandroid.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <permission android:name="android.permission.SET_TIME"
         android:protectionLevel="signatureOrSystem" />

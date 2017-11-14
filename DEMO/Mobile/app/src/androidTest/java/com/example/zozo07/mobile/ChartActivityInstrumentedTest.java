@@ -52,25 +52,7 @@ public class ChartActivityInstrumentedTest{
     @Rule
     public ActivityTestRule<ChartActivity> chartActivity = new ActivityTestRule<ChartActivity>(ChartActivity.class);
 
-
-    private ChartActivity testChartActivity;
-    private BarChart testBarChart;
-    private Context appContext;
-    private TextView tvAlarm;
-
-    private String WEEKDAY_ALARM    = "80";
-    private String SATURDAY_ALARM   = "20";
-    private String SUNDAY_ALARM     = "30";
-
-    private String WEEKDAY_SLEEP    = "70";
-    private String SATURDAY_SLEEP   = "50";
-    private String SUNDAY_SLEEP     = "60";
-
-    private String WEEKDAY_VACATION    = "20";
-    private String SATURDAY_VACATION  = "90";
-    private String SUNDAY_VACATION     = "100";
-
-        @Test
+    @Test
         public void checkIfBarChartIsDisplayed_InterruptedException() throws InterruptedException {
             onView((withId(R.id.bargraph))).check(matches(isDisplayed()));
             Thread.sleep(500);
@@ -106,6 +88,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String WEEKDAY_ALARM = "80";
         onView(withId(R.id.tvAlarm)).check(ViewAssertions.matches(withText(WEEKDAY_ALARM)));
     }
 
@@ -118,6 +101,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String SATURDAY_ALARM = "20";
         onView(withId(R.id.tvAlarm)).check(ViewAssertions.matches(withText(SATURDAY_ALARM)));
     }
 
@@ -132,6 +116,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String SUNDAY_ALARM = "30";
         onView(withId(R.id.tvAlarm)).check(ViewAssertions.matches(withText(SUNDAY_ALARM)));
     }
 
@@ -145,6 +130,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String WEEKDAY_SLEEP = "70";
         onView(withId(R.id.tvSleep)).check(ViewAssertions.matches(withText(WEEKDAY_SLEEP)));
     }
 
@@ -157,6 +143,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String SATURDAY_SLEEP = "50";
         onView(withId(R.id.tvSleep)).check(ViewAssertions.matches(withText(SATURDAY_SLEEP)));
     }
 
@@ -169,6 +156,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String SUNDAY_SLEEP = "60";
         onView(withId(R.id.tvSleep)).check(ViewAssertions.matches(withText(SUNDAY_SLEEP)));
     }
 
@@ -181,6 +169,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String WEEKDAY_VACATION = "20";
         onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(WEEKDAY_VACATION)));
     }
 
@@ -193,6 +182,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String SATURDAY_VACATION = "90";
         onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(SATURDAY_VACATION)));
     }
 
@@ -205,6 +195,7 @@ public class ChartActivityInstrumentedTest{
                         isDisplayed()));
         appCompatRadioButton.perform(click());
         onView(withId(R.id.bargraph)).perform(click());
+        String SUNDAY_VACATION = "100";
         onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(SUNDAY_VACATION)));
     }
 

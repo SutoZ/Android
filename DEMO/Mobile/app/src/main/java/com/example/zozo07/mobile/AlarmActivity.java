@@ -37,14 +37,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
 
     public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
 
-    public static boolean getActive() {
-        return active;
-    }
-
     public static TimePicker getAlarmTimePicker() {return alarmTimePicker; }
-
-    public static TimePicker setAlarmTimePicker(TimePicker newPicker)
-                                                    {return alarmTimePicker = newPicker;}
 
     public static boolean setActive(boolean newValue) {return active = newValue; }
 

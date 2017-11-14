@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.concretepage.android.R;
 
+import java.util.Random;
+
 /**
  * Created by Zozo07 on 2017.11.07..
  */
@@ -21,8 +23,19 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
     private Button ok, cancel;
     private TextView tvTask;
     private EditText etSolution;
-    int num1 = 5;
-    int num2 = 6;
+
+    private int num1 = 5;
+    private int num2 = 6;
+    private int interval = 101;
+    private int sign;
+
+    public int getNum1() {
+        return num1;
+    }
+
+    public int getNum2() {
+        return num2;
+    }
 
 
     public TaskDialogActivity(Activity activity) {
@@ -41,15 +54,41 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
         tvTask = (TextView) findViewById(R.id.tvTask);
         etSolution = (EditText) findViewById(R.id.etSolution);
 
+        Random r = new Random();
+        num1 = r.nextInt(interval);
+        num2 = r.nextInt(interval);
 
-        tvTask.setText(num1 + "+" + num2 + " ?");
+        sign = r.nextInt(3);
+
+        switch (sign){
+            case 0:
+                tvTask.setText(num1 + "+" + num2 + " ?");
+                break;
+            case 1:
+                tvTask.setText(num1 + "-" + num2 + " ?");
+                break;
+            case 2:
+                tvTask.setText(num1 + "*" + num2 + " ?");
+        }
 
         ok.setOnClickListener(this);
         cancel.setOnClickListener(this);
     }
 
-    private int doTheMath(int num1, int num2){
-        return num1 + num2;
+    private int doTheMath(int num1, int num2, int sign) {
+
+        int solution = 0;
+        switch (sign){
+            case 0:
+                solution = num1 + num2;
+                break;
+            case 1:
+                solution = num1 - num2;
+                break;
+            case 2:
+                solution = num1 * num2;
+        }
+        return solution;
     }
 
     @Override
@@ -57,7 +96,7 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
 
         switch (v.getId()) {
             case R.id.btnOK:
-                if (doTheMath(num1, num2) == Integer.parseInt(etSolution.getText().toString())) {
+                if (doTheMath(num1, num2, sign) == Integer.parseInt(etSolution.getText().toString())) {
                     AlarmActivity.setActive(false);
                     AlarmReceiver.getMediaPlayer().stop();
                     activity.finish();

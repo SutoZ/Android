@@ -2,23 +2,29 @@ package com.example.zozo07.mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.filters.SdkSuppress;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
+import android.support.test.uiautomator.Until;
 import android.widget.TimePicker;
 
 import com.concretepage.android.R;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,7 +39,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -44,33 +52,61 @@ import static org.junit.Assert.assertThat;
 @SdkSuppress(minSdkVersion = 18)
 public class AlarmActivityTest {
 
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<MainActivity>(MainActivity.class);
+
     private UiDevice myDevice;
 
+    /*
     @Before
-    public void before() {
-//        myDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        myDevice = UiDevice.getInstance(getInstrumentation());
+    public void setUp() throws UiObjectNotFoundException{
+        myDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
-
-        //assertThat(myDevice, notNullValue());
+        assertThat(myDevice, notNullValue());
 
         myDevice.pressHome();
 
-        UiObject appAppsButton = myDevice.findObject(new UiSelector().description("Alk.-ok"));
-    }
+        myDevice.wait(Until.hasObject(By.pkg(getLauncherPackageName()).depth(0)), 1000);
 
+   //     myDevice.wait(Until.hasObject(By.text("Mobile")), 3000);
+
+        //UiObject2 mobileApp = myDevice.findObject(By.desc("Mobile"));
+        //UiObject appAppsButton = myDevice.findObject(new UiSelector().description("Alk.-ok"));
+    }
+*/
+
+    @Test
     public void openAlarm() throws UiObjectNotFoundException {
+
+
+        myDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+     //   myDevice.pressHome();
+
+        UiObject appButton = myDevice.findObject(new UiSelector().description("Apps"));
+
+
         openApp("com.example.zozo07.mobile");
 
         UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
         appViews.setAsHorizontalList();
 
-        UiObject testApp = appViews.getChildByText(new UiSelector().className(android.widget.TextView.class.getName()),
-                "Alarm");
+        UiObject testApp = appViews.getChildByText(new UiSelector().className(android.widget.TextView.class.getName()), "Open navigation drawer");
         testApp.clickAndWaitForNewWindow();
 
     }
+/*
+    private String getLauncherPackageName() {
+        // Create launcher Intent
+        final Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
 
+        // Use PackageManager to get the launcher package name
+        PackageManager pm = InstrumentationRegistry.getContext().getPackageManager();
+        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return resolveInfo.activityInfo.packageName;
+    }
+*/
     private void openApp(String packageName) {
         Context context = getInstrumentation().getContext();
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
@@ -82,7 +118,7 @@ public class AlarmActivityTest {
     //Espresso
 
     @Test
-    public void check_if_ToastMessage_Equals_SetTime_From_TimePicker() {
+    public void check_if_ToastMessage_Equals_SetTime_From_TimePicker_Alarm() {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         withParent(withId(R.id.toolbar)),
@@ -105,6 +141,25 @@ public class AlarmActivityTest {
 
         onView(withText("Alarm set for " + Integer.toString(hour) + ":" + Integer.toString(minute))).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void check_if_ToastMessage_Equals_SetTime_From_TimePicker_Vacation() {
+        ViewInteraction button = onView(
+                allOf(withId(R.id.button2), withText("Set Date"), isDisplayed()));
+        button.perform(click());
+
+        ViewInteraction button2 = onView(
+                allOf(withId(android.R.id.button1), withText("Beállítás"), isDisplayed()));
+        button2.perform(click());
+
+        int year = AlarmActivity.getYEAR();
+        int month = AlarmActivity.getMONTH();
+        int day = AlarmActivity.getDAY();
+
+        onView(withText(containsString("Special occasion: " + year + "."  + month + "." + day)))
+                .inRoot(new ToastMatcher()).check(matches(isDisplayed()));
 
     }
 

@@ -27,7 +27,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ActionBarDrawerToggle drawerToggle;
     private TextView tvStatus;
 
-    private static TextView tvDate;
+    private TextView tvDate;        //without static
     public static String PACKAGE_NAME;
     public static final String SPECIAL_OCCASION = "special_occasion";
     public static final String ALARM_STATUS = "alarm_status";

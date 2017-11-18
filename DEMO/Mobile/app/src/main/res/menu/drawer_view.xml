@@ -3,28 +3,14 @@
         <item
             anroid:id="@+id/alarms"
             anroid:icon="@drawable/alarm_clock"
-            anroid:title="Alarms"></item>
+            anroid:title="@string/alarms" />
         <item
             anroid:id="@+id/calendar"
             anroid:icon="@drawable/alarm_clock"
-            anroid:title="Calendar"></item>
+            anroid:title="@string/calendar" />
         <item
             anroid:id="@+id/graphs"
             anroid:icon="@drawable/alarm_clock"
-            anroid:title="Graphs"></item>
-        <item
-            anroid:id="@+id/sleep"
-            anroid:icon="@drawable/sleep"
-            anroid:title="Sleep"></item>
-        <item anroid:title="Settings">
-            <menu>
-                <group anroid:checkableBehavior="single">
-                     <item
-                         anroid:id="@+id/settings"
-                         anroid:title="Settings"></item>
-                </group>
-            </menu>
-        </item>
-
+            anroid:title="@string/graphs" />
     </group>
 </menu>

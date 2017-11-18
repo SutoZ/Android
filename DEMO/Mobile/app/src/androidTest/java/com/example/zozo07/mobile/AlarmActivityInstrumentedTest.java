@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.PickerActions;
+import android.support.test.filters.MediumTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.TimePicker;
@@ -24,6 +25,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.*;
 
@@ -37,6 +39,12 @@ public class AlarmActivityInstrumentedTest {
     @Rule
     public ActivityTestRule<AlarmActivity> chartActivity = new ActivityTestRule<AlarmActivity>(AlarmActivity.class);
 
+
+    @MediumTest
+    public void testSetupConditions() throws Exception{
+        assertNotNull(appContext);
+        assertNotNull(chartActivity);
+    }
 /*
     @Before
     public void initiatingTestEnvironment_WithProperActivityStart() {
@@ -53,8 +61,6 @@ public class AlarmActivityInstrumentedTest {
         appContext = InstrumentationRegistry.getTargetContext();
         assertEquals(PACKAGE_NAME, appContext.getPackageName());
     }
-
-
 
 
     @Test
@@ -81,5 +87,4 @@ public class AlarmActivityInstrumentedTest {
         onView((withId(R.id.bargraph))).check(matches(withText("Alarm")));
         Thread.sleep(500);
     }
-
 }

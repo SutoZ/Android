@@ -50,7 +50,7 @@ public class random {
         checkedTextView3.perform(click());
 
         ViewInteraction button = onView(
-                allOf(withId(R.id.button2), withText("Set Date"), isDisplayed()));
+                allOf(withId(R.id.btnSetDate), withText("Set Date"), isDisplayed()));
         button.perform(click());
 
         ViewInteraction button2 = onView(

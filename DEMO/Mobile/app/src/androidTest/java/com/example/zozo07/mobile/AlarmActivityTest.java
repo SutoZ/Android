@@ -2,28 +2,22 @@ package com.example.zozo07.mobile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
-import android.support.test.uiautomator.Until;
 import android.widget.TimePicker;
 
 import com.concretepage.android.R;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -147,7 +141,7 @@ public class AlarmActivityTest {
     @Test
     public void check_if_ToastMessage_Equals_SetTime_From_TimePicker_Vacation() {
         ViewInteraction button = onView(
-                allOf(withId(R.id.button2), withText("Set Date"), isDisplayed()));
+                allOf(withId(R.id.btnSetDate), withText("Set Date"), isDisplayed()));
         button.perform(click());
 
         ViewInteraction button2 = onView(

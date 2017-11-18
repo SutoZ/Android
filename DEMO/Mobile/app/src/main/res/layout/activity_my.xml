@@ -40,7 +40,7 @@
         android:id="@+id/btnStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="STOP"
+        android:text="@string/stop"
         android:layout_marginBottom="32dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/alarmToggle" />

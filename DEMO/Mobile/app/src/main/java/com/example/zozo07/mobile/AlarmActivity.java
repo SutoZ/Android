@@ -138,7 +138,6 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         myIntent.putExtra("active", active);
         myIntent.putExtra("activity", "AlarmActivity");
      startActivityForResult(myIntent, MAIN_ACTIVITY_RESULT_CODE);
-
     }
 
     private void findViews() {

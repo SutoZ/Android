@@ -20,8 +20,6 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
 
     private Activity activity;
     private Dialog dialog;
-    private Button ok, cancel;
-    private TextView tvTask;
     private EditText etSolution;
 
     private int num1 = 5;
@@ -38,7 +36,7 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
     }
 
 
-    public TaskDialogActivity(Activity activity) {
+    TaskDialogActivity(Activity activity) {
         super(activity);
 
         this.activity = activity;
@@ -49,9 +47,9 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog);
 
-        ok = (Button) findViewById(R.id.btnOK);
-        cancel = (Button) findViewById(R.id.btnCancel);
-        tvTask = (TextView) findViewById(R.id.tvTask);
+        Button ok = (Button) findViewById(R.id.btnOK);
+        Button cancel = (Button) findViewById(R.id.btnCancel);
+        TextView tvTask = (TextView) findViewById(R.id.tvTask);
         etSolution = (EditText) findViewById(R.id.etSolution);
 
         Random r = new Random();

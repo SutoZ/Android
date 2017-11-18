@@ -20,13 +20,9 @@ import com.concretepage.android.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertNotNull;
-import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.*;
 
 
@@ -34,7 +30,6 @@ import static org.junit.Assert.*;
 public class AlarmActivityInstrumentedTest {
 
     private Context appContext;
-
 
     @Rule
     public ActivityTestRule<AlarmActivity> chartActivity = new ActivityTestRule<AlarmActivity>(AlarmActivity.class);
@@ -62,10 +57,21 @@ public class AlarmActivityInstrumentedTest {
         assertEquals(PACKAGE_NAME, appContext.getPackageName());
     }
 
+    @Test
+    public void PowerButtonOnAlarmActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.alarmToggle)).perform(click());
+        Thread.sleep(1000);
+    }
 
     @Test
-    public void openAlarmActivityAppears_InterruptedException() throws InterruptedException {
-        onView(withId(R.id.alarmToggle)).perform(click());
+    public void TimePickerOnAlarmActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.alarmTimePicker)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void StopButtonOnAlarmActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.btnStop)).perform(click());
         Thread.sleep(1000);
     }
 
@@ -79,12 +85,5 @@ public class AlarmActivityInstrumentedTest {
         Thread.sleep(2000);
     }
 
-    @Test
-    public void checkIfBarChartX_AxisIsDisplayed_InterruptedException() throws InterruptedException {
-        appContext = InstrumentationRegistry.getTargetContext();
-        Intent intent = new Intent(appContext, ChartActivity.class);
-        appContext.startActivity(intent);
-        onView((withId(R.id.bargraph))).check(matches(withText("Alarm")));
-        Thread.sleep(500);
-    }
+
 }

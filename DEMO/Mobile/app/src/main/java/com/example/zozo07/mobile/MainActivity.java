@@ -46,12 +46,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //Set a toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-/*
-        if (savedInstanceState != null){
-            tvStatus.setText(savedInstanceState.getString(ALARM_STATUS));
-            tvDate.setText(savedInstanceState.getString(SPECIAL_OCCASION));
-        } else {
-            */
             tvStatus = (TextView) findViewById(R.id.tvStatus);
             tvDate = (TextView) findViewById(R.id.tvDate);
 
@@ -64,7 +58,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             //Tie DrawerLayout events to the ActionBarToggle
             mDrawer.addDrawerListener(drawerToggle);
         }
- //   }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
@@ -74,16 +67,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 super.onSaveInstanceState(savedInstanceState);
 
     }
-
-    /*
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        tvDate.setText(savedInstanceState.getString(SPECIAL_OCCASION));
-        tvStatus.setText(savedInstanceState.getString(ALARM_STATUS));
-    }
-*/
 
     @Override
     protected void onResume() {

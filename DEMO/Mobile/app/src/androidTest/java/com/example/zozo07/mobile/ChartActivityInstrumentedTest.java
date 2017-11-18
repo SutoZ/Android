@@ -8,6 +8,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.core.deps.guava.base.Optional;
 import android.support.test.espresso.matcher.BoundedMatcher;
+import android.support.test.filters.MediumTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
@@ -51,6 +52,56 @@ public class ChartActivityInstrumentedTest{
 
     @Rule
     public ActivityTestRule<ChartActivity> chartActivity = new ActivityTestRule<ChartActivity>(ChartActivity.class);
+
+    private Context appContext;
+
+    @MediumTest
+    public void testSetupConditions() {
+        assertNotNull(appContext);
+        assertNotNull(chartActivity);
+    }
+
+    @Test
+    public void BarGraphnOnChartActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.bargraph)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void WeekDayRadioButtonOnChartActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.weekDays)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void SaturdayRadioButtonOnChartActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.saturday)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void SundayRadioButtonOnChartActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.sunday)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void VacationTextViewOnChartActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.tvVacation)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void AlarmTextViewOnChartActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.tvAlarm)).perform(click());
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void SleepTextViewOnChartActivity_Appears() throws InterruptedException {
+        onView(withId(R.id.tvSleep)).perform(click());
+        Thread.sleep(1000);
+    }
 
     @Test
         public void checkIfBarChartIsDisplayed_InterruptedException() throws InterruptedException {
@@ -198,7 +249,6 @@ public class ChartActivityInstrumentedTest{
         String SUNDAY_VACATION = "100";
         onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(SUNDAY_VACATION)));
     }
-
 
     //UIAutomator tests
 

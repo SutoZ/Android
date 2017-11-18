@@ -49,6 +49,7 @@ public class VacationDatePickerFragment extends DialogFragment implements
         Intent datePickerIntent = new Intent(getActivity(), MainActivity.class);
         datePickerIntent.putExtra("occasion", finalDate);
         datePickerIntent.putExtra("activity", "DatePickerActivity");
-        startActivityForResult(datePickerIntent, MAIN_ACTIVITY_RESULT_CODE);
+        //startActivityForResult(datePickerIntent, MAIN_ACTIVITY_RESULT_CODE);
+        startActivity(datePickerIntent);
     }
 }

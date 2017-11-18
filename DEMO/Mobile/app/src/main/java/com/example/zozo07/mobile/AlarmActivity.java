@@ -99,7 +99,6 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
                     finish();
                 }
             };
-
             showCancelWhenEditDialog(discardButtonClickListener);
         }
     }

@@ -49,7 +49,7 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
 
         Button ok = (Button) findViewById(R.id.btnOK);
         Button cancel = (Button) findViewById(R.id.btnCancel);
-        TextView tvTask = (TextView) findViewById(R.id.tvTask);
+        TextView tvTask = (TextView) findViewById(R.id.tvToDo);
         etSolution = (EditText) findViewById(R.id.etSolution);
 
         Random r = new Random();

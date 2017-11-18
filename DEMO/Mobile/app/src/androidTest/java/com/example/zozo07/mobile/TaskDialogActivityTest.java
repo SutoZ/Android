@@ -40,7 +40,7 @@ public class TaskDialogActivityTest {
     @Test
     public void check_If_TextBox_Appears() {
         onView(withId(R.id.btnStop)).perform(click());
-        ViewInteraction toggleButton = onView(allOf(withId(R.id.tvTask), isDisplayed()));
+        ViewInteraction toggleButton = onView(allOf(withId(R.id.tvToDo), isDisplayed()));
         assertNotNull(toggleButton);
     }
 }

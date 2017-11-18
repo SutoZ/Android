@@ -23,4 +23,6 @@
     <string name="alarms">Alarms</string>
     <string name="calendar">Calendar</string>
     <string name="graphs">Graphs</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>

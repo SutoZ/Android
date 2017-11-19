@@ -26,9 +26,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         AlarmActivity inst = AlarmActivity.instance();
         inst.setAlarmText("Alarm! Wake up! Wake up!");
 
-        //this will sound the alarm tone
-        //this will sound the alarm once, if you wish to
-        //raise alarm in loop continuously then use MediaPlayer and setLooping(true)
         Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         player = MediaPlayer.create(context,alarmUri);
         if (alarmUri == null) {

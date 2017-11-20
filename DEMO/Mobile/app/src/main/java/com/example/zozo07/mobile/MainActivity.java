@@ -59,23 +59,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             //Tie DrawerLayout events to the ActionBarToggle
             mDrawer.addDrawerListener(drawerToggle);
 
-        Button btnTestAlarm = (Button) findViewById(R.id.btnTestAlarm);
-        btnTestAlarm.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), TestAlarm.class));
-            }
-        });
         }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putString(ALARM_STATUS, tvStatus.getText().toString());
         savedInstanceState.putString(SPECIAL_OCCASION, tvDate.getText().toString());
-
                 super.onSaveInstanceState(savedInstanceState);
-
     }
 
     @Override

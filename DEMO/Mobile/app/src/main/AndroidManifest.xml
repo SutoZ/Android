@@ -40,7 +40,6 @@
         <service android:name="com.example.zozo07.mobile.AlarmService" />
 
         <activity android:name="com.example.zozo07.mobile.ChartActivity" />
-        <activity android:name="com.example.zozo07.mobile.TestAlarm" />
     </application>
 
 </manifest>

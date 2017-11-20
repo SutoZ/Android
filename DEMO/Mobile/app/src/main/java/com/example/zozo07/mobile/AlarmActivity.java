@@ -28,7 +28,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private static TimePicker alarmTimePicker;
-    private static AlarmActivity inst;
+    private static AlarmActivity inst;     //without static
     private TextView alarmTextView;
     private Context context;
     private static boolean active = false;
@@ -113,12 +113,9 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
             DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    // User clicked "Discard" button, close the current activity.
                     finish();
                 }
             };
-
-            // Show dialog that there are unsaved changes
             showCancelWhenEditDialog(discardButtonClickListener);
         }
     }

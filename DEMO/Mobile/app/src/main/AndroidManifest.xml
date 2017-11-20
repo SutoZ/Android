@@ -3,14 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.concretepage.android">
 
-    <uses-sdk tools:overrideLibrary="android.support.test.uiautomator.v18"/>
+    <uses-sdk tools:overrideLibrary="android.support.test.uiautomator.v18" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERRACT_USERS_FULL" android:protectionLevel="signature" />
-    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission
+        android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
+        android:protectionLevel="signatureOrSystem" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="aandroid.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <permission android:name="android.permission.SET_TIME" android:protectionLevel="signature" />
+
+    <permission
+        android:name="android.permission.SET_TIME"
+        android:protectionLevel="signature" />
 
     <application
         android:allowBackup="false"
@@ -26,12 +31,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.zozo07.mobile.AlarmActivity"
-            android:parentActivityName="com.example.zozo07.mobile.MainActivity"/>
+        <activity
+            android:name="com.example.zozo07.mobile.AlarmActivity"
+            android:parentActivityName="com.example.zozo07.mobile.MainActivity" />
 
         <receiver android:name="com.example.zozo07.mobile.AlarmReceiver" />
 
-        <activity android:name="com.example.zozo07.mobile.ChartActivity"/>
-        
+        <service android:name="com.example.zozo07.mobile.AlarmService" />
+
+        <activity android:name="com.example.zozo07.mobile.ChartActivity" />
+        <activity android:name="com.example.zozo07.mobile.TestAlarm" />
     </application>
+
 </manifest>

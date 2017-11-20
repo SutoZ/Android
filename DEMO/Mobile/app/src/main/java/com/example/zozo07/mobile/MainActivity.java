@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.concretepage.android.R;
@@ -57,6 +58,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             //Tie DrawerLayout events to the ActionBarToggle
             mDrawer.addDrawerListener(drawerToggle);
+
+        Button btnTestAlarm = (Button) findViewById(R.id.btnTestAlarm);
+        btnTestAlarm.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), TestAlarm.class));
+            }
+        });
         }
 
     @Override

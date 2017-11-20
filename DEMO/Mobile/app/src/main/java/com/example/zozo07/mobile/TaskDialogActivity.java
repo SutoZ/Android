@@ -24,7 +24,7 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
 
     private int num1 = 5;
     private int num2 = 6;
-    private int interval = 101;
+    private int interval = 11;
     private int sign;
 
     public int getNum1() {

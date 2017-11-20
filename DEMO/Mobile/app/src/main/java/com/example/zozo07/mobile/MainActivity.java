@@ -100,8 +100,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (alarmActivityIntent != null) {
             if (alarmActivityIntent.getExtras().getBoolean("active")) {
                 String time = "Alarm set for " +
-                        AlarmActivity.getAlarmTimePicker().getCurrentHour() + ":" +
-                        AlarmActivity.getAlarmTimePicker().getCurrentMinute();
+                        AlarmActivity.getCalendarHour() + ":" +
+                        //AlarmActivity.getAlarmTimePicker().getCurrentMinute();
+                        AlarmActivity.getCalendarMinute();
                 tvStatus.setText(time);
             }
         }

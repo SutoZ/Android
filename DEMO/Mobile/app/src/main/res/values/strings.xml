@@ -25,4 +25,6 @@
     <string name="graphs">Graphs</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="timeSelected">Selected Time will display here</string>
+    <string name="open_alarm">Open Alarm</string>
 </resources>

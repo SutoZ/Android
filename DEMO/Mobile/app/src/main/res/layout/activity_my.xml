@@ -8,22 +8,16 @@
     android:paddingBottom="16dp"
     tools:context=".MyActivity">
 
-    <TimePicker
-        android:id="@+id/alarmTimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
 
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alarm_on_off"
         android:id="@+id/alarmToggle"
+        android:onClick="onToggleClicked"
+        android:layout_above="@+id/btnStop"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/alarmTimePicker"
-        android:onClick="onToggleClicked" />
+        android:layout_marginBottom="209dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,5 +38,23 @@
         android:layout_marginBottom="32dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/alarmToggle" />
+
+    <Button
+        android:id="@+id/btnOpenAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/open_alarm"
+        android:layout_marginBottom="73dp"
+        android:layout_above="@+id/alarmToggle"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="53dp"
+        android:text="@string/timeSelected"
+        android:textSize="36sp" />
 
 </RelativeLayout>

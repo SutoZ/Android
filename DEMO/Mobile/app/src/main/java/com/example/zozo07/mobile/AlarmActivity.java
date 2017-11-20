@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,34 +25,58 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class AlarmActivity extends Activity  implements View.OnClickListener{
+public class AlarmActivity extends Activity implements View.OnClickListener {
 
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    private static TimePicker alarmTimePicker;
+
     private static AlarmActivity inst;     //without static
     private TextView alarmTextView;
-    private Context context;
     private static boolean active = false;
     private static Calendar vacationCalendar;
     private Intent myIntent;
 
+    private TextView displayTime;
+
+    public static int getCalendarHour() {
+        return calendarHour;
+    }
+
+    public static int getCalendarMinute() {
+        return calendarMinute;
+    }
+
+    private static int calendarHour;
+    private static int calendarMinute;
+    private String format;
+    private Calendar timePickerCalendar;
+    private TimePickerDialog timepickerdialog;
+
+
     public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
 
-    public static TimePicker getAlarmTimePicker() {return alarmTimePicker; }
+//    public static TimePicker getAlarmTimePicker() {return alarmTimePicker; }
 
-    public static boolean setActive(boolean newValue) {return active = newValue; }
+    public static boolean setActive(boolean newValue) {
+        return active = newValue;
+    }
 
 
     private static int YEAR;
     private static int MONTH;
     private static int DAY;
 
-    public static int getYEAR() { return YEAR; }
+    public static int getYEAR() {
+        return YEAR;
+    }
 
-    public static int getMONTH() { return MONTH; }
+    public static int getMONTH() {
+        return MONTH;
+    }
 
-    public static int getDAY() { return DAY; }
+    public static int getDAY() {
+        return DAY;
+    }
 
     public static AlarmActivity instance() {
         return inst;
@@ -73,7 +99,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     public void onStart() {
         super.onStart();
         inst = this;
-        context = getApplicationContext();
+        Context context = getApplicationContext();
     }
 
     @Override
@@ -133,16 +159,55 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
         myIntent = new Intent(getBaseContext(), MainActivity.class);
         myIntent.putExtra("active", active);
         myIntent.putExtra("activity", "AlarmActivity");
-     startActivityForResult(myIntent, MAIN_ACTIVITY_RESULT_CODE);
+        startActivityForResult(myIntent, MAIN_ACTIVITY_RESULT_CODE);        //!!!!
     }
 
     private void findViews() {
-        alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
         alarmTextView = (TextView) findViewById(R.id.alarmText);
-        ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
+        //ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Button btnStop = (Button) findViewById(R.id.btnStop);
         btnStop.setOnClickListener(this);
+
+        displayTime = (TextView) findViewById(R.id.tvTime);
+
+
+        Button accessTime = (Button) findViewById(R.id.btnOpenAlarm);
+        accessTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                timePickerCalendar = Calendar.getInstance();
+                calendarHour = timePickerCalendar.get(Calendar.HOUR_OF_DAY);
+                calendarMinute = timePickerCalendar.get(Calendar.MINUTE);
+
+                timepickerdialog = new TimePickerDialog(AlarmActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                if (hourOfDay == 0) {
+                                    hourOfDay += 12;        //might have to comment out
+                                    format = "AM";
+                                } else if (hourOfDay == 12) {
+                                    format = "PM";
+                                } else if (hourOfDay > 12) {
+                                //    hourOfDay -= 12;
+                                    format = "PM";
+                                } else {
+                                    format = "AM";
+                                }
+                                displayTime.setText(hourOfDay + ":" + minute + format);
+                                calendarHour = hourOfDay;
+                                calendarMinute = minute;
+                            }
+                        }, calendarHour, calendarMinute, true);
+                timepickerdialog.show();
+
+
+            }
+        });
     }
 
     @Override
@@ -154,27 +219,30 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
     public void onToggleClicked(View view) {        //START!!
         if (((ToggleButton) view).isChecked()) {
             vacationCalendar = Calendar.getInstance();
-            int hour, minute = 0;
+            timePickerCalendar = Calendar.getInstance();
+            int hour = 0, minute = 0;
 
-            hour = alarmTimePicker.getCurrentHour();
-            minute = alarmTimePicker.getCurrentMinute();
+            hour = calendarHour;
+            minute = calendarMinute;
 
-            if (Build.VERSION.SDK_INT >= 23){
-                vacationCalendar.set(Calendar.HOUR_OF_DAY, hour);
-                vacationCalendar.set(Calendar.MINUTE, minute);
-            }
-            else{
-                vacationCalendar.set(Calendar.HOUR_OF_DAY, hour);
-                vacationCalendar.set(Calendar.MINUTE, minute);
+            //vacation set to timePickerCalendar
+            if (Build.VERSION.SDK_INT >= 23) {
+                timePickerCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                timePickerCalendar.set(Calendar.MINUTE, minute);
+            } else {
+                timePickerCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                timePickerCalendar.set(Calendar.MINUTE, minute);
             }
 
             active = true;
 
-
             Toast.makeText(getApplicationContext(), "Alarm set for " + hour + ":" + minute, Toast.LENGTH_LONG).show();
             myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0); //important!
-            alarmManager.set(AlarmManager.RTC, vacationCalendar.getTimeInMillis(), pendingIntent);
+            //alarmManager.set(AlarmManager.RTC, vacationCalendar.getTimeInMillis(), pendingIntent);      //vacationCalendar is bad
+            alarmManager.set(AlarmManager.RTC, timePickerCalendar.getTimeInMillis(), pendingIntent);
+
+
 
             myIntent = new Intent(AlarmActivity.this, MainActivity.class);
             myIntent.putExtra("active", active);
@@ -186,6 +254,7 @@ public class AlarmActivity extends Activity  implements View.OnClickListener{
             setAlarmText("");
         }
     }
+
 
     public void setAlarmText(String alarmText) {
         alarmTextView.setText(alarmText);

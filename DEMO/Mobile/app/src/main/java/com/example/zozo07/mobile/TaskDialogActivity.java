@@ -20,19 +20,24 @@ import java.util.Random;
 class TaskDialogActivity extends Dialog implements android.view.View.OnClickListener {
 
     private Activity activity;
-    private Dialog dialog;
+    //private Dialog dialog;
     private EditText etSolution;
 
-    private int num1 = 5;
-    private int num2 = 6;
-    private int sign;
+    private static int num1 = 0;
+    private static int num2 = 0;
+
+    public static int getSign() {
+        return sign;
+    }
+
+    private static int sign;
     private int solution = 0;
 
-    public int getNum1() {
+    static int getNum1() {
         return num1;
     }
 
-    public int getNum2() {
+    static int getNum2() {
         return num2;
     }
 
@@ -70,7 +75,6 @@ class TaskDialogActivity extends Dialog implements android.view.View.OnClickList
             case 2:
                 tvTask.setText(num1 + "*" + num2 + " ?");
         }
-
         ok.setOnClickListener(this);
         cancel.setOnClickListener(this);
     }
@@ -96,15 +100,16 @@ class TaskDialogActivity extends Dialog implements android.view.View.OnClickList
 
         switch (v.getId()) {
             case R.id.btnOK:
+
                 solution = doTheMath(num1, num2, sign);
 
                 if (solution == Integer.parseInt(etSolution.getText().toString())) {
                     AlarmActivity.setActive(false);
                     AlarmReceiver.getMediaPlayer().stop();
 
-                    //Intent mathIntent = new Intent(TaskDialogActivity.this, StopAla);
+                    //Intent mathIntent = new Intent(TaskDialogActivity.this, .class);
                     //mathIntent.putExtra("MATH", solution);
-                //    startActivity(mathIntent);
+                    //startActivity(mathIntent);
 
                     activity.finish();
                 }

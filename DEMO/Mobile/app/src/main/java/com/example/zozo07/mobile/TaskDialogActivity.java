@@ -16,7 +16,7 @@ import java.util.Random;
  * Created by Zozo07 on 2017.11.07..
  */
 
-public class TaskDialogActivity extends Dialog implements android.view.View.OnClickListener {
+class TaskDialogActivity extends Dialog implements android.view.View.OnClickListener {
 
     private Activity activity;
     private Dialog dialog;
@@ -24,7 +24,6 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
 
     private int num1 = 5;
     private int num2 = 6;
-    private int interval = 11;
     private int sign;
 
     public int getNum1() {
@@ -53,6 +52,7 @@ public class TaskDialogActivity extends Dialog implements android.view.View.OnCl
         etSolution = (EditText) findViewById(R.id.etSolution);
 
         Random r = new Random();
+        int interval = 11;
         num1 = r.nextInt(interval);
         num2 = r.nextInt(interval);
 

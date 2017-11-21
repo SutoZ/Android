@@ -60,19 +60,9 @@
                         android:layout_height="wrap_content"
                         adnroid:layout_centerInParent ="true"
                         android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/set_date"
-                        android:onClick="showVacationDatePickerDialog" />
+                        android:layout_weight="1" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnTestAlarm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/linearLayout"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_marginTop="92dp"
-                    android:text="Button" />
             </RelativeLayout>
         </FrameLayout>
     </LinearLayout>

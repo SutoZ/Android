@@ -40,16 +40,7 @@ public class AlarmActivityInstrumentedTest {
         assertNotNull(appContext);
         assertNotNull(chartActivity);
     }
-/*
-    @Before
-    public void initiatingTestEnvironment_WithProperActivityStart() {
-        appContext = InstrumentationRegistry.getTargetContext();
-        Intent intent = new Intent(appContext, AlarmActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-        appContext.startActivity(intent);
-    }
 
-*/
     @Test
     public void AppContext_checkPackageName_fromContext_With_GivenInputPackageName_Exception() throws Exception {
         String PACKAGE_NAME = "com.example.zozo07.mobile";
@@ -58,34 +49,26 @@ public class AlarmActivityInstrumentedTest {
     }
 
     @Test
-    public void PowerButtonOnAlarmActivity_Appears() throws InterruptedException {
+    public void PowerButtonOnAlarmActivity_Appears() {
         onView(withId(R.id.alarmToggle)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void TimePickerOnAlarmActivity_Appears() throws InterruptedException {
-        onView(withId(R.id.alarmTimePicker)).perform(click());
-        Thread.sleep(1000);
+    public void TimePickerOnAlarmActivity_Appears() {
+        onView(withId(R.id.btnOpenAlarm)).perform(click());
     }
 
     @Test
-    public void StopButtonOnAlarmActivity_Appears() throws InterruptedException {
+    public void StopButtonOnAlarmActivity_Appears() {
         onView(withId(R.id.btnStop)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void setTimeOnTimePicker_InterruptedException() throws InterruptedException {
+    public void setTimeOnTimePicker_InterruptedException() {
         int hour = 10;
         int minute = 55;
 
-        onView(withId(R.id.alarmTimePicker)).perform(click());
+        onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour, minute));
-        Thread.sleep(2000);
     }
-
-
-
-
 }

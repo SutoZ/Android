@@ -158,8 +158,9 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
         alertDialog.show();
         myIntent = new Intent(getBaseContext(), MainActivity.class);
         myIntent.putExtra("active", active);
-        myIntent.putExtra("activity", "AlarmActivity");
-        startActivityForResult(myIntent, MAIN_ACTIVITY_RESULT_CODE);        //!!!!
+           myIntent.putExtra("activity", "AlarmActivity");
+        // startActivityForResult(myIntent, MAIN_ACTIVITY_RESULT_CODE);        //!!!!
+        startActivity(myIntent);
     }
 
     private void findViews() {
@@ -193,7 +194,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
                                 } else if (hourOfDay == 12) {
                                     format = "PM";
                                 } else if (hourOfDay > 12) {
-                                //    hourOfDay -= 12;
+                                    //    hourOfDay -= 12;
                                     format = "PM";
                                 } else {
                                     format = "AM";
@@ -226,22 +227,20 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
             minute = calendarMinute;
 
             //vacation set to timePickerCalendar
-            if (Build.VERSION.SDK_INT >= 23) {
+            //if (Build.VERSION.SDK_INT >= 23) {
                 timePickerCalendar.set(Calendar.HOUR_OF_DAY, hour);
                 timePickerCalendar.set(Calendar.MINUTE, minute);
-            } else {
+            //} else {
                 timePickerCalendar.set(Calendar.HOUR_OF_DAY, hour);
                 timePickerCalendar.set(Calendar.MINUTE, minute);
-            }
+            //}
 
             active = true;
 
             Toast.makeText(getApplicationContext(), "Alarm set for " + hour + ":" + minute, Toast.LENGTH_LONG).show();
             myIntent = new Intent(AlarmActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0); //important!
-            //alarmManager.set(AlarmManager.RTC, vacationCalendar.getTimeInMillis(), pendingIntent);      //vacationCalendar is bad
             alarmManager.set(AlarmManager.RTC, timePickerCalendar.getTimeInMillis(), pendingIntent);
-
 
 
             myIntent = new Intent(AlarmActivity.this, MainActivity.class);
@@ -254,8 +253,6 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
             setAlarmText("");
         }
     }
-
-
     public void setAlarmText(String alarmText) {
         alarmTextView.setText(alarmText);
     }

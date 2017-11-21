@@ -129,7 +129,7 @@ public class AlarmActivityTest {
 
 
         ViewInteraction toggleButton = onView(
-                allOf(withId(R.id.alarmToggle), withText("Ki"), isDisplayed()));
+                allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
         toggleButton.perform(click());
 
 
@@ -145,7 +145,7 @@ public class AlarmActivityTest {
         button.perform(click());
 
         ViewInteraction button2 = onView(
-                allOf(withId(android.R.id.button1), withText("Beállítás"), isDisplayed()));
+                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
         button2.perform(click());
 
         int year = AlarmActivity.getYEAR();

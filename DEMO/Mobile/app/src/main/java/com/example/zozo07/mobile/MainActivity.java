@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.concretepage.android.R;
@@ -33,10 +34,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static final String SPECIAL_OCCASION = "special_occasion";
     public static final String ALARM_STATUS = "alarm_status";
 
-
+/*
     private Intent vacationDatePickerIntent;
     private Intent alarmActivityIntent;
-
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,26 +48,33 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //Set a toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-            tvStatus = (TextView) findViewById(R.id.tvStatus);
-            tvDate = (TextView) findViewById(R.id.tvDate);
+        tvStatus = (TextView) findViewById(R.id.tvStatus);
+        tvDate = (TextView) findViewById(R.id.tvDate);
 
-            mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawerToggle = setupDrawerToggle();
-            NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
-            //Setup a drawer view.
-            setupDrawerContent(nvDrawer);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = setupDrawerToggle();
+        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        //Setup a drawer view.
+        setupDrawerContent(nvDrawer);
 
-            //Tie DrawerLayout events to the ActionBarToggle
-            mDrawer.addDrawerListener(drawerToggle);
+        //Tie DrawerLayout events to the ActionBarToggle
+        mDrawer.addDrawerListener(drawerToggle);
+        Button btnSetDate = (Button) findViewById(R.id.btnSetDate);
+        btnSetDate.setOnClickListener(new View.OnClickListener(){
 
-
-        }
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new VacationDatePickerFragment();
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putString(ALARM_STATUS, tvStatus.getText().toString());
         savedInstanceState.putString(SPECIAL_OCCASION, tvDate.getText().toString());
-                super.onSaveInstanceState(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -78,18 +86,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void checkStatus() {
         tvStatus.setText(R.string.notActive);
-        Intent currentIntent = getIntent();
+        Intent myDataIntent = getIntent();
+        Bundle extras = myDataIntent.getExtras();
         //String currentIntentSource = currentIntent.getExtras().getString("activity");
-        String currentIntentSource = currentIntent.getStringExtra("activity");
+        //String currentIntentSource = currentIntent.getStringExtra("activity");
 
+        /*
         if (Objects.equals(currentIntentSource, "AlarmActivity")) {
             alarmActivityIntent = getIntent();
         } else if (Objects.equals(currentIntentSource, "DatePickerActivity")) {
             vacationDatePickerIntent = getIntent();
         }
-
-        if (alarmActivityIntent != null) {
-            if (alarmActivityIntent.getExtras().getBoolean("active")) {
+*/
+        if (extras != null) {
+            if (myDataIntent.getExtras().getBoolean("active")) {
                 String time = "Alarm set for " +
                         AlarmActivity.getCalendarHour() + ":" +
                         //AlarmActivity.getAlarmTimePicker().getCurrentMinute();
@@ -97,13 +107,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 tvStatus.setText(time);
             }
         }
-        if (vacationDatePickerIntent != null) {
-            if (AlarmActivity.getYEAR() == 0) {
-                tvDate.setText(R.string.no_occasion);
-            } else {
-                if (vacationDatePickerIntent.getExtras().getString("occasion") != null) {
-                    tvDate.setText(vacationDatePickerIntent.getExtras().getString("occasion"));
-                }
+        if (AlarmActivity.getYEAR() == 0) {
+            tvDate.setText(R.string.no_occasion);
+        } else {
+            if (myDataIntent.getExtras().getString("occasion") != null) {
+                tvDate.setText(myDataIntent.getExtras().getString("occasion"));
             }
         }
     }
@@ -163,10 +171,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
+    /*
     public void showVacationDatePickerDialog(View view) {
         DialogFragment newFragment = new VacationDatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
+    */
 }
 
 

@@ -130,11 +130,15 @@ public class MainActivityTest {
         hour = 10;
         minute = 45;
 
+        onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
 
+        ViewInteraction button2 = onView(
+                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
+        button2.perform(click());
 
         ViewInteraction toggleButton = onView(
-                allOf(withId(R.id.alarmToggle), withText("Ki"), isDisplayed()));
+                allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
         toggleButton.perform(click());
 
         onView(withText("Alarm set for " + Integer.toString(hour) + ":" + Integer.toString(minute))).inRoot(new ToastMatcher())
@@ -156,11 +160,12 @@ public class MainActivityTest {
                 allOf(withId(R.id.design_menu_item_text), withText("Alarms"), isDisplayed()));
         checkedTextView2.perform(click());
 
+        onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
 
 
         ViewInteraction toggleButton2 = onView(
-                allOf(withId(R.id.alarmToggle), withText("Ki"), isDisplayed()));
+                allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
         toggleButton2.perform(click());
 
 

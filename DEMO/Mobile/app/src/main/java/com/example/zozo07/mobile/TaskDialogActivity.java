@@ -2,6 +2,7 @@ package com.example.zozo07.mobile;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ class TaskDialogActivity extends Dialog implements android.view.View.OnClickList
     private int num1 = 5;
     private int num2 = 6;
     private int sign;
+    private int solution = 0;
 
     public int getNum1() {
         return num1;
@@ -75,7 +77,7 @@ class TaskDialogActivity extends Dialog implements android.view.View.OnClickList
 
     private int doTheMath(int num1, int num2, int sign) {
 
-        int solution = 0;
+        solution = 0;
         switch (sign){
             case 0:
                 solution = num1 + num2;
@@ -94,9 +96,16 @@ class TaskDialogActivity extends Dialog implements android.view.View.OnClickList
 
         switch (v.getId()) {
             case R.id.btnOK:
-                if (doTheMath(num1, num2, sign) == Integer.parseInt(etSolution.getText().toString())) {
+                solution = doTheMath(num1, num2, sign);
+
+                if (solution == Integer.parseInt(etSolution.getText().toString())) {
                     AlarmActivity.setActive(false);
                     AlarmReceiver.getMediaPlayer().stop();
+
+                    //Intent mathIntent = new Intent(TaskDialogActivity.this, StopAla);
+                    //mathIntent.putExtra("MATH", solution);
+                //    startActivity(mathIntent);
+
                     activity.finish();
                 }
             case R.id.btnCancel:

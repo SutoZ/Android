@@ -27,7 +27,9 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class stopAlarm {
+public class StopAlarm {
+
+    private static int START_INDEX = 0;
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -51,6 +53,9 @@ public class stopAlarm {
         ViewInteraction button2 = onView(
                 allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
         button2.perform(click());
+
+
+
 
         ViewInteraction toggleButton = onView(
                 allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
@@ -78,9 +83,13 @@ public class stopAlarm {
         ViewInteraction editText2 = onView(
                 allOf(withId(R.id.etSolution), isDisplayed()));
 
+        String solution = editText2.toString();
+        int num1 = Integer.parseInt(solution.substring(START_INDEX, solution.indexOf("+")));
+        int num2 = Integer.parseInt(solution.substring(solution.indexOf("+")));
+        //solution =  (num1 + num2)
 
-
-        editText2.perform(replaceText("11"), closeSoftKeyboard());
+        //editText2.perform(replaceText("11"), closeSoftKeyboard());
+        editText2.perform(replaceText(Integer.toString(num1 + num2)), closeSoftKeyboard());
 
         ViewInteraction button4 = onView(
                 allOf(withId(R.id.btnOK), withText("OK"), isDisplayed()));

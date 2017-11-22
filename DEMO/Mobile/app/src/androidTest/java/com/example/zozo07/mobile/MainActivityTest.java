@@ -70,7 +70,7 @@ public class MainActivityTest {
     private int hour, minute;
 
     @Test
-    public void StatusTextViewOnMainActivity_Appears() throws InterruptedException {
+    public void StatusTextViewOnMainActivity_Appears() {
         onView(withId(R.id.tvStatus)).perform(click());
         Log.d(TAG, "Textview for alarm status appears.");
 
@@ -78,22 +78,18 @@ public class MainActivityTest {
         String filename = "StatusTextView";
         //File path = new File(IMG_DIR + filename + ".png");
         device.takeScreenshot(new File(IMG_DIR + filename + ".png"));       //screenshot works!!
-
-        Thread.sleep(1000);
     }
 
     @Test
-    public void DateTextViewOnMainActivity_Appears() throws InterruptedException {
+    public void DateTextViewOnMainActivity_Appears() {
         onView(withId(R.id.tvDate)).perform(click());
         Log.d(TAG, "Textview for special date appears.");
-        Thread.sleep(1000);
     }
 
     @Test
-    public void SetSpecialDateButtonOnMainActivity_Appears() throws InterruptedException {
+    public void SetSpecialDateButtonOnMainActivity_Appears() {
         onView(withId(R.id.btnSetDate)).perform(click());
         Log.d(TAG, "Choose special date appears.");
-        Thread.sleep(1000);
     }
 
     @Test

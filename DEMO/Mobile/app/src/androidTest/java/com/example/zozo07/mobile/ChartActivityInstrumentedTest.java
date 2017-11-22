@@ -62,51 +62,43 @@ public class ChartActivityInstrumentedTest{
     }
 
     @Test
-    public void BarGraphnOnChartActivity_Appears() throws InterruptedException {
+    public void BarGraphnOnChartActivity_Appears() {
         onView(withId(R.id.bargraph)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void WeekDayRadioButtonOnChartActivity_Appears() throws InterruptedException {
+    public void WeekDayRadioButtonOnChartActivity_Appears() {
         onView(withId(R.id.weekDays)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void SaturdayRadioButtonOnChartActivity_Appears() throws InterruptedException {
+    public void SaturdayRadioButtonOnChartActivity_Appears() {
         onView(withId(R.id.saturday)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void SundayRadioButtonOnChartActivity_Appears() throws InterruptedException {
+    public void SundayRadioButtonOnChartActivity_Appears() {
         onView(withId(R.id.sunday)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void VacationTextViewOnChartActivity_Appears() throws InterruptedException {
+    public void VacationTextViewOnChartActivity_Appears() {
         onView(withId(R.id.tvVacation)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void AlarmTextViewOnChartActivity_Appears() throws InterruptedException {
+    public void AlarmTextViewOnChartActivity_Appears() {
         onView(withId(R.id.tvAlarm)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-    public void SleepTextViewOnChartActivity_Appears() throws InterruptedException {
+    public void SleepTextViewOnChartActivity_Appears() {
         onView(withId(R.id.tvSleep)).perform(click());
-        Thread.sleep(1000);
     }
 
     @Test
-        public void checkIfBarChartIsDisplayed_InterruptedException() throws InterruptedException {
+        public void checkIfBarChartIsDisplayed_InterruptedException() {
             onView((withId(R.id.bargraph))).check(matches(isDisplayed()));
-            Thread.sleep(500);
         }
 
         @Test

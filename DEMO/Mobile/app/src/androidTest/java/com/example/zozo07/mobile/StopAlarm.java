@@ -1,6 +1,7 @@
 package com.example.zozo07.mobile;
 
 
+import android.os.Build;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewInteraction;
@@ -59,10 +60,16 @@ public class StopAlarm {
                 allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
         button2.perform(click());
 
-
-        ViewInteraction toggleButton = onView(
-                allOf(withId(R.id.alarmToggle), withText("KI"), isDisplayed()));
-        toggleButton.perform(click());
+        if (Build.VERSION.SDK_INT >= 23) {
+            ViewInteraction toggleButton = onView(
+                    allOf(withId(R.id.alarmToggle), withText("KI"), isDisplayed()));
+            toggleButton.perform(click());
+        }
+        else    {
+            ViewInteraction toggleButton = onView(
+                    allOf(withId(R.id.alarmToggle), withText("KI"), isDisplayed()));
+            toggleButton.perform(click());
+        }
 
         ViewInteraction appCompatImageButton2 = onView(
                 allOf(withContentDescription("Open navigation drawer"),

@@ -2,7 +2,6 @@ package com.example.zozo07.mobile;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -106,11 +105,6 @@ class TaskDialogActivity extends Dialog implements android.view.View.OnClickList
                 if (solution == Integer.parseInt(etSolution.getText().toString())) {
                     AlarmActivity.setActive(false);
                     AlarmReceiver.getMediaPlayer().stop();
-
-                    //Intent mathIntent = new Intent(TaskDialogActivity.this, .class);
-                    //mathIntent.putExtra("MATH", solution);
-                    //startActivity(mathIntent);
-
                     activity.finish();
                 }
             case R.id.btnCancel:

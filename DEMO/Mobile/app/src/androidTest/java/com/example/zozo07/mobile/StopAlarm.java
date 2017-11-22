@@ -56,12 +56,12 @@ public class StopAlarm {
         button.perform(click());
 
         ViewInteraction button2 = onView(
-                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
+                allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
         button2.perform(click());
 
 
         ViewInteraction toggleButton = onView(
-                allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
+                allOf(withId(R.id.alarmToggle), withText("KI"), isDisplayed()));
         toggleButton.perform(click());
 
         ViewInteraction appCompatImageButton2 = onView(
@@ -107,15 +107,5 @@ public class StopAlarm {
         ViewInteraction button4 = onView(
                 allOf(withId(R.id.btnOK), withText("OK"), isDisplayed()));
         button4.perform(click());
-
-        /*
-        ViewInteraction button5 = onView(
-                allOf(withId(R.id.btnStop), withText("STOP"), isDisplayed()));
-        button5.perform(click());
-
-        ViewInteraction editText3 = onView(
-                allOf(withId(R.id.etSolution), isDisplayed()));
-        editText3.perform(click());
-        */
     }
 }

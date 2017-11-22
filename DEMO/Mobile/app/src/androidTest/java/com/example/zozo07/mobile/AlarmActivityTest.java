@@ -145,7 +145,7 @@ public class AlarmActivityTest {
         button.perform(click());
 
         ViewInteraction button2 = onView(
-                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
+                allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
         button2.perform(click());
 
         int year = AlarmActivity.getYEAR();

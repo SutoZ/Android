@@ -2,6 +2,7 @@ package com.example.zozo07.mobile;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.espresso.matcher.BoundedMatcher;
@@ -9,6 +10,7 @@ import android.support.test.filters.MediumTest;
 import android.support.test.internal.util.Checks;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ViewAsserts;
 import android.util.Log;
@@ -24,6 +26,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+
+import static android.R.attr.path;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -33,6 +38,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withContentDesc
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.concretepage.android.R.string.description;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.Matchers.allOf;
@@ -48,6 +54,7 @@ public class MainActivityTest {
 
     private static int BACKGROUND_COLOR = -16720385;
     private static int DIFFERENT_COLOR = -17570412;
+    private static String IMG_DIR = "/storage/emulated/0/Pictures/Screenshots/";
     private static final String TAG = "MainActivityTest";
 
     //Design tests
@@ -62,11 +69,16 @@ public class MainActivityTest {
 
     private int hour, minute;
 
-
     @Test
     public void StatusTextViewOnMainActivity_Appears() throws InterruptedException {
         onView(withId(R.id.tvStatus)).perform(click());
         Log.d(TAG, "Textview for alarm status appears.");
+
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        String filename = "StatusTextView";
+        //File path = new File(IMG_DIR + filename + ".png");
+        device.takeScreenshot(new File(IMG_DIR + filename + ".png"));       //screenshot works!!
+
         Thread.sleep(1000);
     }
 
@@ -134,7 +146,7 @@ public class MainActivityTest {
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
 
         ViewInteraction button2 = onView(
-                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
+                allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
         button2.perform(click());
 
         ViewInteraction toggleButton = onView(
@@ -171,6 +183,5 @@ public class MainActivityTest {
 
         onView(withText("Alarm set for " + Integer.toString(hour) + ":" + Integer.toString(minute))).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
-
     }
 }

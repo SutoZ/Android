@@ -113,6 +113,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
         vacationCalendar = Calendar.getInstance();
         vacationCalendar.setTime(currentTime);
 
+        //folytatni
         if ((int) vacationCalendar.get(Calendar.YEAR) == YEAR &&
                 (int) vacationCalendar.get(Calendar.MONTH) + 1 == MONTH &&
                 (int) vacationCalendar.get(Calendar.DAY_OF_MONTH) == DAY) {
@@ -156,11 +157,12 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        myIntent = new Intent(getBaseContext(), MainActivity.class);
-        myIntent.putExtra("active", active);
-           myIntent.putExtra("activity", "AlarmActivity");
+       // myIntent = new Intent(getBaseContext(), MainActivity.class);
+     //   myIntent = new Intent(getBaseContext(), AlarmActivity.class);
+     //   myIntent.putExtra("active", active);
+     //      myIntent.putExtra("activity", "AlarmActivity");
         // startActivityForResult(myIntent, MAIN_ACTIVITY_RESULT_CODE);        //!!!!
-        startActivity(myIntent);
+     //   startActivity(myIntent);
     }
 
     private void findViews() {

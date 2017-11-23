@@ -89,18 +89,7 @@ public class AlarmActivityTest {
         testApp.clickAndWaitForNewWindow();
 
     }
-/*
-    private String getLauncherPackageName() {
-        // Create launcher Intent
-        final Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
 
-        // Use PackageManager to get the launcher package name
-        PackageManager pm = InstrumentationRegistry.getContext().getPackageManager();
-        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return resolveInfo.activityInfo.packageName;
-    }
-*/
     private void openApp(String packageName) {
         Context context = getInstrumentation().getContext();
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
@@ -135,7 +124,6 @@ public class AlarmActivityTest {
 
         onView(withText("Alarm set for " + Integer.toString(hour) + ":" + Integer.toString(minute))).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
-
     }
 
     @Test
@@ -156,6 +144,4 @@ public class AlarmActivityTest {
                 .inRoot(new ToastMatcher()).check(matches(isDisplayed()));
 
     }
-
-
 }

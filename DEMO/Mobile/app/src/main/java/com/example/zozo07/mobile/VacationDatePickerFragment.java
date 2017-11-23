@@ -22,11 +22,11 @@ public class VacationDatePickerFragment extends DialogFragment implements
         DatePickerDialog.OnDateSetListener{
 
     public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
-
+    private Calendar calendar;
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -47,7 +47,9 @@ public class VacationDatePickerFragment extends DialogFragment implements
         Toast.makeText(getContext(), finalDate, Toast.LENGTH_LONG).show();
 
         Intent datePickerIntent = new Intent(getActivity(), MainActivity.class);
+ //       Intent datePickerIntent = new Intent(getActivity(), AlarmActivity.class);
         datePickerIntent.putExtra("occasion", finalDate);
+       // datePickerIntent.putExtra("occasion", calendar);
         datePickerIntent.putExtra("activity", "VacationDatePickerActivity");
         startActivity(datePickerIntent);
     }

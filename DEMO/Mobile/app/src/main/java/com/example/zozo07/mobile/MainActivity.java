@@ -110,9 +110,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (AlarmActivity.getYEAR() == 0) {
             tvDate.setText(R.string.no_occasion);
         } else {
-            if (myDataIntent.getExtras().getString("occasion") != null) {
+            if (myDataIntent.getExtras() != null) {
                 tvDate.setText(myDataIntent.getExtras().getString("occasion"));
             }
+            else tvDate.setText(R.string.vacation_day);
         }
     }
 

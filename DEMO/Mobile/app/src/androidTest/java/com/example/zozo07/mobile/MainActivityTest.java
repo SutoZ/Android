@@ -1,5 +1,6 @@
 package com.example.zozo07.mobile;
 
+import android.app.PendingIntent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.test.InstrumentationRegistry;
@@ -12,12 +13,14 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.v4.widget.DrawerLayout;
+import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.util.Log;
 import android.view.View;
 import android.widget.TimePicker;
 
 import com.concretepage.android.R;
+import com.google.android.libraries.cloudtesting.screenshots.ScreenShotter;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -50,7 +53,7 @@ import static org.hamcrest.Matchers.containsString;
 
 
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity>{
 
     private static int BACKGROUND_COLOR = -16720385;
     private static int DIFFERENT_COLOR = -17570412;
@@ -61,6 +64,17 @@ public class MainActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivity = new ActivityTestRule<MainActivity>(MainActivity.class);
+
+    public MainActivityTest() {
+        super(MainActivity.class);
+    }
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        getActivity();
+
+    }
 
     @MediumTest
     public void testSetupConditions() throws Exception{
@@ -122,7 +136,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void modifyAlarm() {
+    public void modifyAlarm() throws InterruptedException {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         withParent(withId(R.id.toolbar)),
@@ -141,6 +155,8 @@ public class MainActivityTest {
         onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
 
+        ScreenShotter.takeScreenshot("modify1", getActivity());
+
         ViewInteraction button2 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
         button2.perform(click());
@@ -148,6 +164,7 @@ public class MainActivityTest {
         ViewInteraction toggleButton = onView(
                 allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
         toggleButton.perform(click());
+
 
         onView(withText("Alarm set for " + Integer.toString(hour) + ":" + Integer.toString(minute))).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
@@ -164,6 +181,8 @@ public class MainActivityTest {
         hour = 12;
         minute = 30;
 
+        Thread.sleep(2000);
+
         ViewInteraction checkedTextView2 = onView(
                 allOf(withId(R.id.design_menu_item_text), withText("Alarms"), isDisplayed()));
         checkedTextView2.perform(click());
@@ -171,11 +190,13 @@ public class MainActivityTest {
         onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
 
+        ScreenShotter.takeScreenshot("modify1", getActivity());
+
+        button2.perform(click());
 
         ViewInteraction toggleButton2 = onView(
                 allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
         toggleButton2.perform(click());
-
 
         onView(withText("Alarm set for " + Integer.toString(hour) + ":" + Integer.toString(minute))).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));

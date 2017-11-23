@@ -60,16 +60,14 @@ public class StopAlarm {
                 allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
         button2.perform(click());
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            ViewInteraction toggleButton = onView(
-                    allOf(withId(R.id.alarmToggle), withText("KI"), isDisplayed()));
+
+            ViewInteraction toggleButton = onView(allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
             toggleButton.perform(click());
-        }
-        else    {
-            ViewInteraction toggleButton = onView(
-                    allOf(withId(R.id.alarmToggle), withText("KI"), isDisplayed()));
+
+
+            ViewInteraction toggleButton2 = onView(allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
             toggleButton.perform(click());
-        }
+
 
         ViewInteraction appCompatImageButton2 = onView(
                 allOf(withContentDescription("Open navigation drawer"),

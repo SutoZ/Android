@@ -59,6 +59,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         //Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
+
         Button btnSetDate = (Button) findViewById(R.id.btnSetDate);
         btnSetDate.setOnClickListener(new View.OnClickListener(){
 
@@ -171,13 +172,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
         }
     }
-
-    /*
-    public void showVacationDatePickerDialog(View view) {
-        DialogFragment newFragment = new VacationDatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-    */
 }
 
 

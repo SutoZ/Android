@@ -21,8 +21,7 @@ import java.util.Calendar;
 public class VacationDatePickerFragment extends DialogFragment implements
         DatePickerDialog.OnDateSetListener{
 
-    public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
-    private Calendar calendar;
+    //public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class VacationDatePickerFragment extends DialogFragment implements
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         AlarmActivity.setYEAR(year);
-        AlarmActivity.setMONTH(month + 1);      //Be Careful!!
+        AlarmActivity.setMONTH(month + 1);
         AlarmActivity.setDAY(dayOfMonth);
 
         String finalDate = "Special occasion: " + AlarmActivity.getYEAR() + "." + AlarmActivity.getMONTH() + "." + AlarmActivity.getDAY();
@@ -47,9 +46,7 @@ public class VacationDatePickerFragment extends DialogFragment implements
         Toast.makeText(getContext(), finalDate, Toast.LENGTH_LONG).show();
 
         Intent datePickerIntent = new Intent(getActivity(), MainActivity.class);
- //       Intent datePickerIntent = new Intent(getActivity(), AlarmActivity.class);
         datePickerIntent.putExtra("occasion", finalDate);
-       // datePickerIntent.putExtra("occasion", calendar);
         datePickerIntent.putExtra("activity", "VacationDatePickerActivity");
         startActivity(datePickerIntent);
     }

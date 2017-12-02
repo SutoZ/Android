@@ -19,13 +19,10 @@ import java.util.ArrayList;
 public class ChartActivity extends AppCompatActivity{
 
     private BarChart barChart;
-    //private RadioButton rbA, rbC, rbD;
-
     private BarDataSet barDataSet;
     private ArrayList<BarEntry> barEntries;
     private ArrayList<String> theTitles;
     private BarData theData;
-    private int[] colors;
     private TextView tvAlarm, tvSleep, tvVacation;
 
     @Override
@@ -51,7 +48,6 @@ public class ChartActivity extends AppCompatActivity{
         theTitles.add("Sleep");
         theTitles.add("Vacation");
 
-        colors = new int[] {Color.GREEN, Color.RED, Color.BLUE};
 
         theData = new BarData(theTitles, barDataSet);
         barChart.setData(theData);

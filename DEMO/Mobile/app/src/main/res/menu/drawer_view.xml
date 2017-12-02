@@ -1,16 +1,16 @@
 <menu xmlns:anroid="http://schemas.android.com/apk/res/android">
-    <group anroid:checkableBehavior="single">
-        <item
-            anroid:id="@+id/alarms"
-            anroid:icon="@drawable/alarm_clock"
-            anroid:title="@string/alarms" />
-        <item
-            anroid:id="@+id/calendar"
-            anroid:icon="@drawable/alarm_clock"
-            anroid:title="@string/calendar" />
-        <item
-            anroid:id="@+id/graphs"
-            anroid:icon="@drawable/alarm_clock"
-            anroid:title="@string/graphs" />
-    </group>
+<group anroid:checkableBehavior="single">
+    <item
+        anroid:id="@+id/alarms"
+        anroid:icon="@drawable/alarm_clock"
+        anroid:title="@string/alarms" />
+    <item
+        anroid:id="@+id/calendar"
+        anroid:icon="@drawable/alarm_clock"
+        anroid:title="@string/calendar" />
+    <item
+        anroid:id="@+id/graphs"
+        anroid:icon="@drawable/alarm_clock"
+        anroid:title="@string/graphs" />
+</group>
 </menu>

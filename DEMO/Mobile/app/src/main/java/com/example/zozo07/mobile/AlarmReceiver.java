@@ -33,8 +33,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         }
         player.setLooping(true);
         player.start();
-     //   ringtone = RingtoneManager.getRingtone(context, alarmUri);
-     //   ringtone.play();
 
         //this will send a notification message
         ComponentName comp = new ComponentName(context.getPackageName(),

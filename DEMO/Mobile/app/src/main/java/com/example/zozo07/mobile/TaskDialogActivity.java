@@ -19,13 +19,12 @@ import java.util.Random;
 class TaskDialogActivity extends Dialog implements android.view.View.OnClickListener {
 
     private Activity activity;
-    //private Dialog dialog;
     private EditText etSolution;
 
     private static int num1 = 0;
     private static int num2 = 0;
 
-    public static int getSign() {
+    static int getSign() {
         return sign;
     }
 

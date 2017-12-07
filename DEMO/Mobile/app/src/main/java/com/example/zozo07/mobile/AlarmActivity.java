@@ -8,10 +8,8 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,7 +28,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
 
-    private static AlarmActivity inst;     //without static
+    private static AlarmActivity inst;
     private TextView alarmTextView;
     private static boolean active = false;
     private static Calendar vacationCalendar;
@@ -132,9 +130,9 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if ((int) vacationCalendar.get(Calendar.YEAR) == YEAR &&
-                (int) vacationCalendar.get(Calendar.MONTH) + 1 == MONTH &&
-                (int) vacationCalendar.get(Calendar.DAY_OF_MONTH) == DAY) {
+        if (vacationCalendar.get(Calendar.YEAR) == YEAR &&
+                vacationCalendar.get(Calendar.MONTH) + 1 == MONTH &&
+                vacationCalendar.get(Calendar.DAY_OF_MONTH) == DAY) {
 
             DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
                 @Override

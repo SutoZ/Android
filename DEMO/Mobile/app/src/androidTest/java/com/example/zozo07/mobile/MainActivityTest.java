@@ -1,9 +1,8 @@
 package com.example.zozo07.mobile;
 
-import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Environment;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.espresso.matcher.BoundedMatcher;
@@ -11,6 +10,7 @@ import android.support.test.filters.MediumTest;
 import android.support.test.internal.util.Checks;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.support.v4.widget.DrawerLayout;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
@@ -26,6 +26,8 @@ import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -48,11 +50,13 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     private static int BACKGROUND_COLOR = -16720385;
     private static int DIFFERENT_COLOR = -17570412;
-    //    private static String IMG_DIR = "/storage/emulated/0/Pictures/Screenshots/";
-    private static String IMG_DIR = Environment.getExternalStorageDirectory()
-            .getAbsolutePath() + "/Pictures/Screenshots/";
+    private static String IMG_DIR = "/storage/emulated/0/Pictures/Screenshots/";
+    //private static String IMG_DIR = Environment.getExternalStorageDirectory()
+     //       .getAbsolutePath() + "/Pictures/Screenshots/";
     private static final String TAG = "MainActivityTest";
-    private Activity currentActivity;
+    private String fileName = "";
+
+    UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivity = new ActivityTestRule<MainActivity>(MainActivity.class);
@@ -83,17 +87,10 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     public void StatusTextViewOnMainActivity_Appears() {
         onView(withId(R.id.tvStatus)).perform(click());
         Log.d(TAG, "TextView for alarm status appears.");
-        Spoon.screenshot(mainActivity.getActivity(), "initial_state");
 
-      //  Spoon.save(, "/data/data/com.yourapp/your.file");
+        fileName = "StatusTextView";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
 
-
-       // UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        //File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        //String filename = "StatusTextView";
-       // device.takeScreenshot(new File(path.toString() + "/Screenshots/" + filename + ".png"));
-
-        Spoon.screenshot(mainActivity.getActivity(), "appeared");
         assertNotNull(R.id.tvStatus);
     }
 
@@ -103,12 +100,10 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         onView(withId(R.id.drawer_layout)).check(matches(drawerLayoutColor(BACKGROUND_COLOR)));
     }
 
-    /*
     @Test
     public void Should_FailToMatch_IfColorIsDifferenct() {
         onView(withId(R.id.drawer_layout)).check(matches(drawerLayoutColor(DIFFERENT_COLOR)));
     }
-*/
 
     public static Matcher<View> drawerLayoutColor(final int color) {
         Checks.checkNotNull(color);
@@ -143,7 +138,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
         Thread.sleep(2000);
 
-        Spoon.screenshot(mainActivity.getActivity(), "before_modifying");
+        fileName = "Before_Modification";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
 
         int hour = 10;
         int minute = 45;
@@ -151,13 +147,17 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour, minute));
 
-//        ScreenShotter.takeScreenshot("modify1", getActivity());
+        Thread.sleep(1000);
+
+        fileName = "During_Modification1";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
 
         ViewInteraction button2 = onView(
                 allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
         button2.perform(click());
 
-        Spoon.screenshot(mainActivity.getActivity(), "after_modifying");
+        fileName = "After_Modification";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
 
         ViewInteraction toggleButton = onView(
                 allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
@@ -174,9 +174,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
                         isDisplayed()));
         appCompatImageButton2.perform(click());
 
-        Thread.sleep(2000);
-
-
         hour = 12;
         minute = 30;
 
@@ -185,19 +182,21 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
                 allOf(withId(R.id.design_menu_item_text), withText("Alarms"), isDisplayed()));
         checkedTextView2.perform(click());
 
-        Spoon.screenshot(mainActivity.getActivity(), "before_second_modifying");
-
-
         onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour, minute));
 
+        Thread.sleep(1000);
 
-        // ScreenShotter.takeScreenshot("modify1", getActivity());
+        fileName = "During_Second_Modification";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
+
 
         button2.perform(click());
 
-        Spoon.screenshot(mainActivity.getActivity(), "after_second_modifying");
+        Thread.sleep(1000);
 
+        fileName = "After_Second_Modification";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
 
         ViewInteraction toggleButton2 = onView(
                 allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
@@ -206,20 +205,4 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         onView(withText("Alarm set for " + Integer.toString(hour) + ":" + Integer.toString(minute))).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
-
-    /*
-    private Activity getActivityInstance() {
-
-        getInstrumentation().runOnMainSync(new Runnable() {
-            public void run() {
-                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
-                if (resumedActivities.iterator().hasNext()) {
-                    currentActivity = (Activity) resumedActivities.iterator().next();
-                }
-            }
-        });
-
-        return currentActivity;
-    }
-*/
 }

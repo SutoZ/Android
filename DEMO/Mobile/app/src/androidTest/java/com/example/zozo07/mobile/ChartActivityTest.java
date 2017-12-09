@@ -11,6 +11,7 @@ import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.filters.MediumTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +28,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Text;
+
+import java.io.File;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -48,21 +51,22 @@ import static org.hamcrest.Matchers.allOf;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class ChartActivityInstrumentedTest{
+public class ChartActivityTest {
 
+
+    private UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+    private static String IMG_DIR = "/storage/emulated/0/Pictures/Screenshots/";
+    private String fileName;
     @Rule
     public ActivityTestRule<ChartActivity> chartActivity = new ActivityTestRule<ChartActivity>(ChartActivity.class);
 
-    private Context appContext;
-
     @MediumTest
     public void testSetupConditions() {
-        assertNotNull(appContext);
         assertNotNull(chartActivity);
     }
 
     @Test
-    public void BarGraphnOnChartActivity_Appears() {
+    public void BarGraphOnChartActivity_Appears() {
         onView(withId(R.id.bargraph)).perform(click());
     }
 
@@ -105,6 +109,9 @@ public class ChartActivityInstrumentedTest{
         public void checkIfBarChart_Changed_By_RadioButton_weekDays_Click_Not_Null() {
             onView(withId(R.id.weekDays)).perform(click());
             onView(withId(R.id.bargraph)).perform(click());
+
+
+
             assertNotNull(withId(R.id.bargraph));
         }
 
@@ -133,6 +140,10 @@ public class ChartActivityInstrumentedTest{
         onView(withId(R.id.bargraph)).perform(click());
         String WEEKDAY_ALARM = "80";
         onView(withId(R.id.tvAlarm)).check(ViewAssertions.matches(withText(WEEKDAY_ALARM)));
+
+        fileName = "WeekDayAlarm";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
+
     }
 
     @Test
@@ -188,6 +199,9 @@ public class ChartActivityInstrumentedTest{
         onView(withId(R.id.bargraph)).perform(click());
         String SATURDAY_SLEEP = "50";
         onView(withId(R.id.tvSleep)).check(ViewAssertions.matches(withText(SATURDAY_SLEEP)));
+
+        fileName = "Saturday_Sleep";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
     }
 
     @Test
@@ -240,9 +254,8 @@ public class ChartActivityInstrumentedTest{
         onView(withId(R.id.bargraph)).perform(click());
         String SUNDAY_VACATION = "100";
         onView(withId(R.id.tvVacation)).check(ViewAssertions.matches(withText(SUNDAY_VACATION)));
+
+        fileName = "Sunday_Vacation";
+        device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
     }
-
-    //UIAutomator tests
-
-
 }

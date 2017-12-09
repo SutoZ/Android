@@ -16,6 +16,7 @@ import android.support.test.uiautomator.UiSelector;
 import android.widget.TimePicker;
 
 import com.concretepage.android.R;
+import com.squareup.spoon.Spoon;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -51,57 +52,8 @@ public class AlarmActivityTest {
 
     private UiDevice myDevice;
 
-    /*
-    @Before
-    public void setUp() throws UiObjectNotFoundException{
-        myDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-
-        assertThat(myDevice, notNullValue());
-
-        myDevice.pressHome();
-
-        myDevice.wait(Until.hasObject(By.pkg(getLauncherPackageName()).depth(0)), 1000);
-
-   //     myDevice.wait(Until.hasObject(By.text("Mobile")), 3000);
-
-        //UiObject2 mobileApp = myDevice.findObject(By.desc("Mobile"));
-        //UiObject appAppsButton = myDevice.findObject(new UiSelector().description("Alk.-ok"));
-    }
-*/
-
     @Test
-    public void openAlarm() throws UiObjectNotFoundException {
-
-
-        myDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-
-     //   myDevice.pressHome();
-
-        UiObject appButton = myDevice.findObject(new UiSelector().description("Apps"));
-
-
-        openApp("com.example.zozo07.mobile");
-
-        UiScrollable appViews = new UiScrollable(new UiSelector().scrollable(true));
-        appViews.setAsHorizontalList();
-
-        UiObject testApp = appViews.getChildByText(new UiSelector().className(android.widget.TextView.class.getName()), "Open navigation drawer");
-        testApp.clickAndWaitForNewWindow();
-
-    }
-
-    private void openApp(String packageName) {
-        Context context = getInstrumentation().getContext();
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(intent);
-    }
-
-
-    //Espresso
-
-    @Test
-    public void check_if_ToastMessage_Equals_SetTime_From_TimePicker_Alarm() {
+    public void check_if_ToastMessage_Equals_SetTime_From_TimePicker_Alarm() throws InterruptedException {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         withParent(withId(R.id.toolbar)),
@@ -114,8 +66,20 @@ public class AlarmActivityTest {
 
         int hour = 10;
         int minute = 55;
+
+        ViewInteraction button = onView(
+                allOf(withId(R.id.btnOpenAlarm), withText("Open Alarm"), isDisplayed()));
+        button.perform(click());
+
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour,minute));
 
+        ViewInteraction button2 = onView(
+                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
+        button2.perform(click());
+
+        Thread.sleep(1000);
+
+        Spoon.screenshot(mActivityRule.getActivity(), "ToastMessage");
 
         ViewInteraction toggleButton = onView(
                 allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));

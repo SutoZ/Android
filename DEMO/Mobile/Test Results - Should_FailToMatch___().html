@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Test Results &mdash; ChartActivityInstrum...</title>
+<title>Test Results &mdash; Should_FailToMatch...()</title>
 <style type="text/css">
           html {
             height: 100%
@@ -572,8 +572,8 @@ jQuery.cookie = function(name, value, options) {
 <body>
 <div id="container">
 <div id="header">
-<div class="time">17.55 s</div>
-<h1>ChartActivityInstrum...: <strong><span class="total">13 total, </span><span class="passed">13 passed</span></strong>
+<div class="time">782 ms</div>
+<h1>Should_FailToMatch...(): <strong><span class="total">1 total, </span><span class="error">1 error</span></strong>
 </h1>
 <div id="treecontrol">
 <ul>
@@ -589,75 +589,20 @@ jQuery.cookie = function(name, value, options) {
 </div>
 <div id="content">
 <ul id="tree">
-<li xmlns="" class="level top open">
+<li xmlns="" class="level top failed open">
 <span><em class="time">
-<div class="time">17.55 s</div>
-</em>com.example.zozo07.mobile.ChartActivityInstrumentedTest</span>
+<div class="time">782 ms</div>
+</em>com.example.zozo07.mobile.MainActivityTest</span>
 <ul>
-<li class="level test">
+<li class="level test failed open">
 <span><em class="time">
-<div class="time">1.27 s</div>
-</em><em class="status">passed</em>checkIfBarChartIsDisplayed_InterruptedException</span>
+<div class="time">782 ms</div>
+</em><em class="status">error</em>Should_FailToMatch_IfColorIsDifferenct</span>
+<ul>
+<li class="text">
+<span class="stderr">android.support.test.espresso.base.DefaultFailureHandler$AssertionFailedWithCauseError: &#39;with text color: HOLO_BLUE_BRIGHT&#39; doesn&#39;t match the selected view.<br/>Expected: with text color: HOLO_BLUE_BRIGHT<br/>Got: &quot;DrawerLayout{id=2131558541, res-name=drawer_layout, visibility=VISIBLE, width=540, height=960, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}&quot;<br/><br/>at dalvik.system.VMStack.getThreadStackTrace(Native Method)<br/>at java.lang.Thread.getStackTrace(Thread.java:579)<br/>at android.support.test.espresso.base.DefaultFailureHandler.getUserFriendlyError(DefaultFailureHandler.java:92)<br/>at android.support.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:56)<br/>at android.support.test.espresso.ViewInteraction.runSynchronouslyOnUiThread(ViewInteraction.java:184)<br/>at android.support.test.espresso.ViewInteraction.check(ViewInteraction.java:158)<br/>at com.example.zozo07.mobile.MainActivityTest.Should_FailToMatch_IfColorIsDifferenct(MainActivityTest.java:106)<br/>at java.lang.reflect.Method.invokeNative(Native Method)<br/>at java.lang.reflect.Method.invoke(Method.java:515)<br/>at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)<br/>at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)<br/>at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)<br/>at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)<br/>at android.support.test.internal.statement.UiThreadStatement.evaluate(UiThreadStatement.java:55)<br/>at android.support.test.rule.ActivityTestRule$ActivityStatement.evaluate(ActivityTestRule.java:270)<br/>at org.junit.rules.RunRules.evaluate(RunRules.java:20)<br/>at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)<br/>at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)<br/>at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)<br/>at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)<br/>at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)<br/>at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)<br/>at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)<br/>at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)<br/>at org.junit.runners.ParentRunner.run(ParentRunner.java:363)<br/>at org.junit.runners.Suite.runChild(Suite.java:128)<br/>at org.junit.runners.Suite.runChild(Suite.java:27)<br/>at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)<br/>at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)<br/>at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)<br/>at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)<br/>at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)<br/>at org.junit.runners.ParentRunner.run(ParentRunner.java:363)<br/>at org.junit.runner.JUnitCore.run(JUnitCore.java:137)<br/>at org.junit.runner.JUnitCore.run(JUnitCore.java:115)<br/>at android.support.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)<br/>at android.support.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:262)<br/>at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1729)<br/>Caused by: junit.framework.AssertionFailedError: &#39;with text color: HOLO_BLUE_BRIGHT&#39; doesn&#39;t match the selected view.<br/>Expected: with text color: HOLO_BLUE_BRIGHT<br/>Got: &quot;DrawerLayout{id=2131558541, res-name=drawer_layout, visibility=VISIBLE, width=540, height=960, has-focus=true, has-focusable=true, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=false, is-selected=false, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=2}&quot;<br/><br/>at android.support.test.espresso.matcher.ViewMatchers.assertThat(ViewMatchers.java:1053)<br/>at android.support.test.espresso.assertion.ViewAssertions$2.check(ViewAssertions.java:89)<br/>at android.support.test.espresso.ViewInteraction$2.run(ViewInteraction.java:170)<br/>at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:422)<br/>at java.util.concurrent.FutureTask.run(FutureTask.java:237)<br/>at android.os.Handler.handleCallback(Handler.java:733)<br/>at android.os.Handler.dispatchMessage(Handler.java:95)<br/>at android.os.Looper.loop(Looper.java:146)<br/>at android.app.ActivityThread.main(ActivityThread.java:5593)<br/>at java.lang.reflect.Method.invokeNative(Native Method)<br/>at java.lang.reflect.Method.invoke(Method.java:515)<br/>at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1283)<br/>at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1099)<br/>at dalvik.system.NativeStart.main(Native Method)<br/></span>
 </li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.35 s</div>
-</em><em class="status">passed</em>weekDay_Sleep_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.48 s</div>
-</em><em class="status">passed</em>sunday_Alarm_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.25 s</div>
-</em><em class="status">passed</em>saturday_Vacation_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.20 s</div>
-</em><em class="status">passed</em>checkIfBarChart_Changed_By_RadioButton_Sunday_Click_Not_Null</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.32 s</div>
-</em><em class="status">passed</em>sunday_Vacation_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.43 s</div>
-</em><em class="status">passed</em>saturday_Alarm_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.32 s</div>
-</em><em class="status">passed</em>sunday_Sleep_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.30 s</div>
-</em><em class="status">passed</em>weekDay_Vacation_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.35 s</div>
-</em><em class="status">passed</em>checkIfBarChart_Changed_By_RadioButton_weekDays_Click_Not_Null</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.48 s</div>
-</em><em class="status">passed</em>saturday_Sleep_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.30 s</div>
-</em><em class="status">passed</em>weekDay_Alarm_value_Equals_textViewValue</span>
-</li>
-<li class="level test">
-<span><em class="time">
-<div class="time">1.50 s</div>
-</em><em class="status">passed</em>checkIfBarChart_Changed_By_RadioButton_Saturday_Click_Not_Null</span>
+</ul>
 </li>
 </ul>
 </li>
@@ -665,7 +610,7 @@ jQuery.cookie = function(name, value, options) {
 </div>
 </div>
 <div id="footer">
-<p>Generated by Android Studio on 2017.11.06. 1:14</p>
+<p>Generated by Android Studio on 2017.12.08. 0:12</p>
 </div>
 </body>
 </html>

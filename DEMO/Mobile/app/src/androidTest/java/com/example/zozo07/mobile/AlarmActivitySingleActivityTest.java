@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(AndroidJUnit4.class)
-public class AlarmActivityInstrumentedTest {
+public class AlarmActivitySingleActivityTest {
 
     private Context appContext;
 
@@ -73,6 +73,7 @@ public class AlarmActivityInstrumentedTest {
         onView(withId(R.id.btnOpenAlarm)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(hour, minute));
 
+        Spoon.screenshot(alarmActivity.getActivity(), "Setting_Time");
 
         ViewInteraction button2 = onView(
                 allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));

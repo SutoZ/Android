@@ -57,15 +57,11 @@ public class StopAlarm {
         button.perform(click());
 
         ViewInteraction button2 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
+                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
         button2.perform(click());
 
 
             ViewInteraction toggleButton = onView(allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
-            toggleButton.perform(click());
-
-
-            ViewInteraction toggleButton2 = onView(allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
             toggleButton.perform(click());
 
 

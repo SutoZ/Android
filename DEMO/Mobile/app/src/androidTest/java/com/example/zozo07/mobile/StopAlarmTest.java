@@ -29,7 +29,7 @@ import static org.junit.Assert.assertFalse;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class StopAlarm {
+public class StopAlarmTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -55,7 +55,7 @@ public class StopAlarm {
         button.perform(click());
 
         ViewInteraction button2 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
+                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
         button2.perform(click());
 
         Thread.sleep(1000);

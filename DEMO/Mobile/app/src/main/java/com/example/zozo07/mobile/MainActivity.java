@@ -3,23 +3,19 @@ package com.example.zozo07.mobile;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.PersistableBundle;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.concretepage.android.R;
-
-import java.util.Objects;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
@@ -33,11 +29,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static String PACKAGE_NAME;
     public static final String SPECIAL_OCCASION = "special_occasion";
     public static final String ALARM_STATUS = "alarm_status";
-
-/*
-    private Intent vacationDatePickerIntent;
-    private Intent alarmActivityIntent;
-*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +45,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
         NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        //Setup a drawer view.
         setupDrawerContent(nvDrawer);
-
-        //Tie DrawerLayout events to the ActionBarToggle
         mDrawer.addDrawerListener(drawerToggle);
 
         Button btnSetDate = (Button) findViewById(R.id.btnSetDate);
@@ -89,16 +77,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         tvStatus.setText(R.string.notActive);
         Intent myDataIntent = getIntent();
         Bundle extras = myDataIntent.getExtras();
-        //String currentIntentSource = currentIntent.getExtras().getString("activity");
-        //String currentIntentSource = currentIntent.getStringExtra("activity");
 
-        /*
-        if (Objects.equals(currentIntentSource, "AlarmActivity")) {
-            alarmActivityIntent = getIntent();
-        } else if (Objects.equals(currentIntentSource, "DatePickerActivity")) {
-            vacationDatePickerIntent = getIntent();
-        }
-*/
         if (extras != null) {
             if (myDataIntent.getExtras().getBoolean("active")) {
                 String time = "Alarm set for " +

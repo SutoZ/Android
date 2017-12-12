@@ -1,18 +1,10 @@
 package com.example.zozo07.mobile;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
 import android.widget.TimePicker;
 
 import com.concretepage.android.R;
@@ -23,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -35,9 +26,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by Zozo07 on 2017.11.12..
@@ -49,8 +37,6 @@ public class AlarmActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<MainActivity>(MainActivity.class);
-
-    private UiDevice myDevice;
 
     @Test
     public void check_if_ToastMessage_Equals_SetTime_From_TimePicker_Alarm() throws InterruptedException {

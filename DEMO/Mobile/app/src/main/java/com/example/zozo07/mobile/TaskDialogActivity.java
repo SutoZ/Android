@@ -29,7 +29,9 @@ class TaskDialogActivity extends Dialog implements android.view.View.OnClickList
     }
 
     private static int sign;
-    private int solution = 0;
+    private static int solution = 0;
+
+    static int getSolution() {return solution; }
 
     static int getNum1() {
         return num1;

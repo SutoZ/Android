@@ -5,7 +5,6 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,14 +48,10 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     private Calendar timePickerCalendar;
     private TimePickerDialog timepickerdialog;
 
-
-   // public static final int MAIN_ACTIVITY_RESULT_CODE = 1;
-
-//    public static TimePicker getAlarmTimePicker() {return alarmTimePicker; }
-
     public static boolean setActive(boolean newValue) {
         return active = newValue;
     }
+    public static boolean getActive() {return active; }
 
 
     private static int YEAR;
@@ -96,7 +91,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         inst = this;
-        Context context = getApplicationContext();
+        //Context context = getApplicationContext();
     }
 
     @Override

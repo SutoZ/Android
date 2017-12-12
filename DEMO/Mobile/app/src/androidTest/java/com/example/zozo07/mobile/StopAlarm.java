@@ -1,20 +1,15 @@
 package com.example.zozo07.mobile;
 
 
-import android.os.Build;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.concretepage.android.R;
 
-import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,25 +18,28 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class StopAlarm {
 
-    private static int START_INDEX = 0;
-
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
+    private UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+    private String fileName;
+
     @Test
-    public void stopAlarm() {
+    public void stopAlarm() throws InterruptedException {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         withParent(withId(R.id.toolbar)),
@@ -57,12 +55,17 @@ public class StopAlarm {
         button.perform(click());
 
         ViewInteraction button2 = onView(
-                allOf(withId(android.R.id.button1), withText("Set"), isDisplayed()));
+                allOf(withId(android.R.id.button1), withText("OK"), isDisplayed()));
         button2.perform(click());
 
+        Thread.sleep(1000);
 
-            ViewInteraction toggleButton = onView(allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
-            toggleButton.perform(click());
+        fileName = "StatusTextView";
+    //    device.takeScreenshot(new File(IMG_DIR + fileName + ".png"));
+
+
+        ViewInteraction toggleButton = onView(allOf(withId(R.id.alarmToggle), withText("OFF"), isDisplayed()));
+        toggleButton.perform(click());
 
 
         ViewInteraction appCompatImageButton2 = onView(
@@ -92,7 +95,7 @@ public class StopAlarm {
         int sign = TaskDialogActivity.getSign();
         int solution = 0;
 
-        switch (sign){
+        switch (sign) {
             case 0:
                 solution = num1 + num2;
                 break;
@@ -108,5 +111,8 @@ public class StopAlarm {
         ViewInteraction button4 = onView(
                 allOf(withId(R.id.btnOK), withText("OK"), isDisplayed()));
         button4.perform(click());
+
+        assertEquals(solution, TaskDialogActivity.getSolution());
+        assertFalse(AlarmActivity.getActive());
     }
 }

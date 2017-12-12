@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -22,7 +21,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        //this will update the UI with message
         AlarmActivity inst = AlarmActivity.instance();
         inst.setAlarmText("Alarm! Wake up! Wake up!");
 
